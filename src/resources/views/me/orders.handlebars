@@ -1,0 +1,90 @@
+
+<h3>Quản lý đơn hàng</h3>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+  
+  <table class="table table-bordered table-striped mb-0">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Khách hàng</th>
+        <th scope="col">Số điện thoại</th>
+        <th scope="col">Tổng đơn giá</th>
+        <th scope="col" >Thời gian tạo</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col"colspan='2'>Hành động</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orders}}
+      <tr>
+        <th scope="row">{{sum @index 1}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.phoneNumber}}</td>
+        <td class='total-mn'></td>
+        <td class='hidden total-nb'>{{this.total}}</td>
+        <td>{{this.createdAt}}</td>
+        <td>{{this.status}}</td>
+        <td>
+            <button type="button" class="btn btn-dark btn-sm" onclick="window.location.href='/orders/{{this._id}}/view'"><span class="material-icons">remove_red_eye</span></button>
+            <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-order" style='cursor:pointer'><span class="material-icons">backspace</span></a>
+        </td>
+
+      </tr>
+      {{/each}}
+      
+      
+    </tbody>
+  </table>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="delete-order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa đơn hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa đơn hàng này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+        <button type="button" id='btn-delete' class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name='delete-form-order' method='POST'></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+
+        var orderId;
+        var deleteForm = document.forms['delete-form-order'];
+        var btnDelete = document.getElementById('btn-delete')
+        $('#delete-order').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        orderId = button.data('id')
+        console.log(orderId)
+       
+        })
+        btnDelete.onclick = function () {
+            deleteForm.action = "/orders/" + orderId + "?_method=DELETE";
+            deleteForm.submit()
+        }
+        
+    })
+    var hidden = document.getElementsByClassName('total-nb')
+    for (var i=0; i< hidden.length; i++){
+      var number = parseFloat(hidden[i].innerHTML)
+      var totalDel = Number(number.toFixed(2)).toLocaleString()
+      document.getElementsByClassName('total-mn')[i].innerHTML = totalDel
+    }
+
+    
+</script>

@@ -1,0 +1,54 @@
+<h3 style='margin-top:-5px'>Chỉnh sửa hồ sơ</h3>
+<form method="POST" action='/me?_method=PUT'>
+    <div class='mt-4' style='background-color: {{content.colorForm}}'>
+    <p class="font-weight-bold">Họ tên đầy đủ: &ensp;<input type='text'  value='{{user.fullName}}' disabled></p><br>
+    <p class="font-weight-bold">Email: &ensp;<input type='email' name='email' value='{{user.email}}' disabled></p><br>
+    <p class="font-weight-bold">Số điện thoại: &ensp;<input type='tel' name='phoneNumber' value='{{user.phoneNumber}}' pattern='\+?(0|84)\d{9}' title='Nhập đúng định dạng số thuê bao Việt Nam'></p><br>
+    <p class="font-weight-bold">Số căn cước công dân/CMND: &ensp;<input name='ID' value='{{user.ID}}' disabled></p><br>
+    <p class="font-weight-bold">Địa chỉ thường trú: &ensp;<input type='text' name='address' value='{{user.address}}'></p><br>
+    <p class="font-weight-bold">Ngày sinh: &ensp;<input type='date' value='{{user.dateofBirth}}' disabled></p><br>
+    <p class="font-weight-bold">Quyền hạn của tài khoản: &ensp;
+        <select id="inputGroupSelect01"  value='{{user.role}}' name='role'>
+            <option selected>{{user.role}}</option>
+            <option value="Mod">Mod</option>
+            <option value="Salesman">Salesman</option>
+        </select>
+    </p><br>
+    <p class="font-weight-bold">Thay đổi mật khẩu: &ensp;<input type='password' name='oldPass' id='oldPass' style='width: 200px'placeholder="Mật khẩu cũ"><input type='password' id='newPass' name='newPass'style='width: 200px'placeholder="Mật khẩu mới" pattern="[a-zA-Z0-9!@#$%^&*]{6,}" title="Mật khẩu từ 6 ký tự, không phân biệt chữ thường, chữ hoa, số, hoặc một số ký tự đặc biệt &#013; như '!', '@', '#', '$', '%', '^', '&' '*'."><input type='password' id='testPass' style='width: 200px' placeholder="Xác nhận mật khẩu mới"></p><br>
+    <button type="submit" class="btn btn-primary btn-lg btn-block "><span class="material-icons">save</span>Lưu lại</button>
+</div>
+    
+</form>
+<style>
+    p {
+        display: inline-block;
+        vertical-align: top;
+    }
+    h3 {
+        display: inline-block; 
+        margin:5px;
+    }
+    input, select {
+         border: 1px solid #ccc;
+         border-radius: 8px;
+         width: 500px;
+    }
+</style>
+<script>
+    role = document.getElementById('inputGroupSelect01')
+    if (role.value !== 'Admin'){
+        role.setAttribute('disabled', true)
+    }
+    var testPass = document.getElementById('testPass')
+    var newPass = document.getElementById('newPass')
+    function check() {
+        if (testPass.value != newPass.value) {
+            testPass.setCustomValidity('Mật khẩu mới không giống nhau');
+        } else {
+            // input is valid -- reset the error message
+            testPass.setCustomValidity('');}
+    }
+    newPass.onchange = check;
+    testPass.onkeyup = check;
+
+</script>

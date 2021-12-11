@@ -1,0 +1,146 @@
+<div class="mt-4"style='background-color: {{content.colorForm}}'>
+    <div class="row">
+        <div class="col-lg-3">
+            <img class="img-items"  class="card-img-top" src={{item.image}}>
+            <p style='margin-top: 16px;font-size:14px;'><span class="material-icons-two-tone">verified_user
+                </span> Bảo hành chính hãng 1 năm</p>
+            <p style=' font-size:14px'><span class="material-icons-two-tone">bento</span> Bộ sản phẩm gồm: Hộp, Sạc, Sách hướng dẫn</p>
+            <p style=' font-size:14px'><span class="material-icons-two-tone">local_shipping</span> Giao hàng tận nhà nhanh chóng</p>
+            <p><del class='price-del'>{{item.priceDel}}</del><h7></h7></p>
+            <h5 class='hidden'><span class="material-icons-two-tone" style='float: left;'>local_fire_department</span><div class='price'>{{item.price}}</div></h5>
+            <h5><span class="material-icons-two-tone" style='float: left;'>local_fire_department</span><div class='price-mn'></div></h5>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Mua ngay</button><br>
+        </div>
+        <div class="col-lg-9">
+            <h2>{{item.name}}</h2>
+            <iframe width="700px" height="390px" style="margin-top:30px" src="https://www.youtube.com/embed/{{item.posterImg}}" title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p style="text-algin:left; margin-top: 30px;  white-space: pre-line" >{{item.detail}}</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Mua ngay</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    
+      <div class="modal-body">
+    <form method="POST" action='/orderitems'>
+        <table class="table">
+        <thead class="cart-row">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" class="cart-item cart-header cart-column">Tên sản phẩm</th>
+                <th scope="col" class="cart-price cart-header cart-column">Giá</th>
+                <th scope="col" class='cart-quantity cart-header cart-column'>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody class="cart-items">
+            
+            <tr>
+                <div class='cart-item cart-column cart-row '>
+                    <th scope="row" ><img style='max-height: 50px'src='{{item.image}}'></th>
+                    <td class="cart-item-title items">{{item.name}}</td>
+                                
+                </div>
+                <td class='cart-price cart-column price-items'>{{item.price}}</td>
+                <td><div class="cart-quantity cart-column">
+                        <input class="cart-quantity-input quantity-items" type="number" value="1" style='width: 40px; margin-right: 10px'>
+                        
+                    </div></td>
+            </tr>
+            
+                        
+        </tbody>
+        
+    
+        <div class="mb-3">
+            <label for="name" >Họ tên của bạn</label>
+            <input type="text" class="form-control"  value='{{order.name}}' id="name" name='name'>
+        </div>
+        <div class="mb-3">
+            <label for="address" >Địa chỉ</label>
+            <input type="text" class="form-control"  value='{{order.address}}' id="address" name='address'>
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" >Số điện thoại</label>
+            <input type="text" class="form-control"  value='{{order.phoneNumber}}' id="phoneNumber" name='phoneNumber'>
+        </div>
+        </table>
+        <div class="cart-total">
+            <strong class="cart-total-title">Tổng Cộng:</strong>
+            <span class="cart-total-price " id='total'>0</span>
+        </div>
+        <input type="text" value='' id='nameItems' name='nameItems' style='display: none'>
+        <input type="text" class="form-control"  id= 'total-items' style='display: none' value='' id="total" name='total'>
+        
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Đặt hàng</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+    //open cart
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+
+    //Cart
+    function updatecart(){
+      var priceItem = document.getElementsByClassName('price-items')[0];
+      var quantityItem = document.getElementsByClassName('cart-quantity-input')[0]
+      var price = parseFloat(priceItem.innerText)
+      var quantity = quantityItem.value
+      var total = 0
+      total = total + (price*quantity)
+      document.getElementsByClassName('cart-total-price')[0].innerText = total + ' VNĐ'
+
+      //[POST] total
+      var totalInput = document.getElementById('total-items');
+      totalInput.setAttribute('value', total)
+      //[POST] nameItems
+      var titleItem = document.getElementsByClassName('cart-item-title')[0]
+      var inputNameitems = document.getElementById('nameItems')
+      var valueNameitems = titleItem.innerText + ' SL: ' + (total / price)
+
+      inputNameitems.setAttribute('value', valueNameitems)
+    }
+    var quantityInput = document.getElementsByClassName('cart-quantity-input')
+    for (i=0; i < quantityInput.length; i++){
+      var input=quantityInput[i]
+      input.addEventListener('change', function(event){
+        var input = event.target
+        if (isNaN(input.value) || input.value <= 0){
+          input.value = 1
+        }
+        updatecart()
+      })
+    }
+    var numberPrice = parseFloat(document.getElementsByClassName('price')[0].innerHTML)
+    var numberPriceDel = parseFloat(document.getElementsByClassName('price-del')[0].innerText)
+    var priceDel = Number(numberPriceDel.toFixed(2)).toLocaleString()
+    var price = Number(numberPrice.toFixed(2)).toLocaleString()
+    var numberDiscount = Math.floor(100 - ((numberPrice/numberPriceDel) * 100))
+    document.getElementsByClassName('price-del')[0].innerText = priceDel + ' vnđ'
+    document.getElementsByClassName('price-mn')[0].innerHTML = price + ' vnđ'
+    document.getElementsByTagName('h7')[0].innerText = ' -' + numberDiscount + '%'
+
+    
+    
+</script>

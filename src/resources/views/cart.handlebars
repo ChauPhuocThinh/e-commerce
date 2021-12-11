@@ -1,0 +1,153 @@
+<div class="mt-4">
+    <h3 style="margin-top: -25px;">Giỏ hàng</h3>
+        <table class="table">
+        <thead class="cart-row">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col"></th>
+                <th scope="col" class="cart-item cart-header cart-column">Tên sản phẩm</th>
+                <th scope="col" class="cart-price cart-header cart-column">Giá</th>
+                <th scope="col" class='cart-quantity cart-header cart-column'>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody class="cart-items">
+            {{#each carts}}
+            <tr>
+                <div class='cart-item cart-column cart-row '>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td><img src='{{this.image}}' style='max-height: 50px'></td>
+                    <td class="cart-item-title items">{{this.nameItem}}</td>
+                                
+                </div>
+                <td class='cart-price cart-column price-items'>{{this.price}}</td>
+                <td><div class="cart-quantity cart-column">
+                        <input class="cart-quantity-input quantity-items" type="number" value='1' style='width: 40px; margin-right: 10px'>
+                        <a data-id='{{this._id}}' data-toggle="modal" data-target="#delete-item" style='cursor:pointer'><span class="material-icons">delete</span></a>
+                    </div></td>
+            </tr>
+            {{/each}}
+                        
+        </tbody>
+        
+    <form method="POST" action='/orderitems'>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Họ tên của bạn</span>
+            </div>
+            <input type="text" value='{{order.name}}' name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Địa chỉ</span>
+            </div>
+            <input type="text" value='{{order.address}}' name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Số điện thoại</span>
+            </div>
+            <input type="text" value='{{order.phoneNumber}}'  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ghi chú</span>
+            </div>
+            <textarea class="form-control" aria-label="With textarea" value='{{order.note}}' id="note" name='note'></textarea>
+        </div>
+        </table>
+        <div class="cart-total">
+            <strong class="cart-total-title">Tổng Cộng:</strong>
+            <span class="cart-total-price " id='total'>0</span>
+        </div>
+        <input type="text" id='nameItems' value = '' name='nameItems' style='display: none'>
+        <input type="text" class="form-control"  value = '' id='total-items' style='display: none' name='total'>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Mua thêm</button>
+            <button class="btn btn-primary" type="submit" >Đặt hàng</button>
+        </div>
+        
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="delete-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa sản phẩm này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+        <button type="button" id='btn-delete' class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form name='delete-form-item' method='POST'></form>
+<script>
+    //total
+    function updatecart() {
+          var titleItems = document.getElementsByClassName('cart-item-title')
+          var valueNameitems = ''
+          var rows = document.getElementsByClassName('cart-item-title')
+          var total = 0;
+          for (var i = 0; i < rows.length; i++) {
+              var price_item = document.getElementsByClassName("price-items")[i]
+              var quantity_item = document.getElementsByClassName("cart-quantity-input")[i]
+              var price = parseFloat(price_item.innerText)// chuyển một chuổi string sang number để tính tổng tiền.
+              var quantity = quantity_item.value // lấy giá trị trong thẻ input
+              total = total + (price * quantity)
+              var titleItem = titleItems[i]
+              valueNameitems += titleItem.innerText + ' SL: ' + quantity + '; '
+              
+          }
+          
+          document.getElementsByClassName("cart-total-price")[0].innerText = total + ' VNĐ'
+          //[POST] to DB
+        var totalInput = document.getElementById('total-items');
+        totalInput.setAttribute('value', total)
+        var inputNameitems = document.getElementById('nameItems')
+        inputNameitems.setAttribute('value', valueNameitems)
+
+        
+    }
+    updatecart()
+    var quantity_input = document.getElementsByClassName("cart-quantity-input");
+        for (var i = 0; i < quantity_input.length; i++) {
+            var input = quantity_input[i];
+            input.addEventListener("change", function (event) {
+                var input = event.target
+                if (isNaN(input.value) || input.value <= 0) {
+                    input.value = 1;
+                }
+                updatecart()
+            })
+        }
+    
+    //end
+    //delete
+    document.addEventListener('DOMContentLoaded', function (){
+
+        var itemId;
+        var deleteForm = document.forms['delete-form-item'];
+        var btnDelete = document.getElementById('btn-delete');
+        var deleteAll = document.getElementById('delete-all');
+        $('#delete-item').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            itemId = button.data('id')
+            console.log(itemId)
+        })
+        btnDelete.onclick = function () {
+            deleteForm.action = "/" + itemId + "?_method=DELETE";
+            deleteForm.submit()
+        }
+    })
+
+
+    
+</script>

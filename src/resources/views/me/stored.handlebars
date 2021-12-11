@@ -1,0 +1,84 @@
+<h3 ><span class="material-icons-two-tone md-36">manage_search</span>Quản lý sản phẩm</h3><div style='margin-left: 991px'><button type="button" class="btn btn-success btn-sm" onclick="window.location.href='/items/create'" style='position: right'>Thêm sản phẩm</button></div>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    
+    <table class="table table-bordered table-striped mb-0">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá</th>
+                <th scope="col" colspan='2'>Thời gian tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each items}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td class='price-mn'></td>
+                <td class='hidden price-nb'>{{this.price}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/items/{{this._id}}/edit'"><span class="material-icons-two-tone rotate">settings</span></button>
+                    <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-item" style='cursor:pointer'><span class="material-icons">backspace</span></a>
+                    
+                </td>
+
+            </tr>
+            {{/each}}
+            
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="delete-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa sản phẩm này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+        <button type="button" id='btn-delete' class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name='delete-form-item' method='POST'></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+
+        var itemId;
+        var deleteForm = document.forms['delete-form-item'];
+        var btnDelete = document.getElementById('btn-delete')
+        $('#delete-item').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        itemId = button.data('id')
+        console.log(itemId)
+       
+        })
+        btnDelete.onclick = function () {
+            deleteForm.action = "/items/" + itemId + "?_method=DELETE";
+            deleteForm.submit()
+        }
+        
+    })
+    var hidden = document.getElementsByClassName('price-nb')
+    for (var i=0; i< hidden.length; i++){
+      var number = parseFloat(hidden[i].innerHTML)
+      var price_Del = Number(number.toFixed(2)).toLocaleString()
+      document.getElementsByClassName('price-mn')[i].innerText = price_Del + " vnđ"
+    }
+
+    
+</script>
