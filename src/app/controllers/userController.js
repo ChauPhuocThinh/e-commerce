@@ -2,7 +2,7 @@ const Item = require('../models/item');
 const Order = require('../models/order');
 const User = require('../models/user');
 const Content = require('../models/content');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { mongooseToObject } = require('../../util/mongoose');
 const { findOne } = require('../models/item');
 class UserController {

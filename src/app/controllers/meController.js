@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Content = require('../models/content');
 const { mutipleMongooseToObject } = require('../../util/mongoose');
 const { mongooseToObject } = require('../../util/mongoose');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 class MeController {
     //[GET] /me/stored/items
 
