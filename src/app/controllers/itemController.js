@@ -99,7 +99,20 @@ class ItemController {
 
     //[DELETE] //items/:id/
     delete(req, res, next) {
+        Item.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    } 
+    //[DELETE] //items/:id/force
+    deleteForce(req, res, next) {
         Item.deleteOne({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    } 
+
+    //[PATCH] //items/:id/restore
+    restore(req, res, next) {
+        Item.restore({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next);
     } 
@@ -109,5 +122,17 @@ class ItemController {
         order.save();
         res.render('orderitems');
     }
+    //[POST] /items/deleteMany
+    deleteMany(req, res, next){
+       Item.delete({ _id: { $in: req.body.itemIds}})
+       .then(() => res.redirect('back'))
+       .catch(next);
+    }
+    //[PATCH] //items/restoreMany
+    restoreMany(req, res, next) {
+        Item.restore({ _id: {$in: req.body.itemIds}})
+            .then(() => res.redirect('back'))
+            .catch(next);
+    } 
 }
 module.exports = new ItemController();

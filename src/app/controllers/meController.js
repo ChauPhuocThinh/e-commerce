@@ -9,9 +9,16 @@ class MeController {
     //[GET] /me/stored/items
 
     stored(req, res, next) {
+        let itemQuery = Item.find({})
+        if (req.query.hasOwnProperty('_sort')){
+            itemQuery = itemQuery.sort({
+                [req.query.column]: req.query.type
+            })
+        }
+        
         Content.findOne({ _id: '61b06b214abfb32e201c3d95'})
             .then((content)=>{
-                Item.find({})
+                itemQuery
                     .then((items) =>{
                         if (req.session.successSignin == 'Admin' ||
                         req.session.successSignin == 'Mod'){
@@ -35,9 +42,15 @@ class MeController {
     }
     //[GET] /me/orders
     orders(req, res, next) {
+        let orderQuery = Order.find({})
+        if (req.query.hasOwnProperty('_sort')){
+            orderQuery = orderQuery.sort({
+                [req.query.column]: req.query.type
+            })
+        }
         Content.findOne({ _id: '61b06b214abfb32e201c3d95'})
             .then((content)=>{
-                Order.find({})
+                orderQuery
                     .then((orders) =>{
                         if (req.session.successSignin == 'Admin' ||
                         req.session.successSignin == 'Mod' ||
@@ -61,10 +74,16 @@ class MeController {
     }
     //[GET] /me/accounts
     accounts(req,res,next){
+        let userQuery = User.find({display: true})
+        if (req.query.hasOwnProperty('_sort')){
+            userQuery = userQuery.sort({
+                [req.query.column]: req.query.type
+            })
+        }
         if(req.session.successSignin == 'Admin'){
             Content.findOne({ _id: '61b06b214abfb32e201c3d95'})
                 .then((content)=>{
-                    User.find({})
+                    userQuery
                         .then((users)=>{
                             User.findOne({email: req.session.email})
                                 .then((user) => {
@@ -166,8 +185,74 @@ class MeController {
             .then(() => res.redirect('back'))
             .catch(next);
     }
-
-
+    //[GET] /me/trash/items
+    
+    trashItems(req, res, next) {
+        let trashItemsQuery = Item.findDeleted({})
+        if (req.query.hasOwnProperty('_sort')){
+            trashItemsQuery = trashItemsQuery.sort({
+                [req.query.column]: req.query.type
+            })
+        }
+        Content.findOne({ _id: '61b06b214abfb32e201c3d95'})
+        .then((content)=>{
+            trashItemsQuery
+                .then((items) =>{
+                    if (req.session.successSignin == 'Admin' ||
+                    req.session.successSignin == 'Mod'){
+                        User.findOne({ email: req.session.email })
+                            .then((user) =>{
+                                res.render('./me/trashItems', {
+                                    items: mutipleMongooseToObject(items),
+                                    user: mongooseToObject(user),
+                                    content: mongooseToObject(content)
+                                })
+                            })
+                            .catch(next)
+                        } else {
+                            res.send('Trang ngày chỉ dành cho Admin hoặc Mod')
+                        }
+                })
+                .catch(next);
+                })
+        .catch(next)
+                
+        
+    }
+    //[GET] /me/trash/Orders
+    
+    trashOrders(req, res, next) {
+        let trashOrdersQuery = Order.findDeleted({})
+        if (req.query.hasOwnProperty('_sort')){
+            trashOrdersQuery = trashOrdersQuery.sort({
+                [req.query.column]: req.query.type
+            })
+        }
+        Content.findOne({ _id: '61b06b214abfb32e201c3d95'})
+        .then((content)=>{
+            trashOrdersQuery
+                .then((orders) =>{
+                    if (req.session.successSignin == 'Admin' ||
+                    req.session.successSignin == 'Mod'){
+                        User.findOne({ email: req.session.email })
+                            .then((user) =>{
+                                res.render('./me/trashOrders', {
+                                    orders: mutipleMongooseToObject(orders),
+                                    user: mongooseToObject(user),
+                                    content: mongooseToObject(content)
+                                })
+                            })
+                            .catch(next)
+                        } else {
+                            res.send('Trang ngày chỉ dành cho Admin hoặc Mod')
+                        }
+                })
+                .catch(next);
+                })
+        .catch(next)
+                
+        
+    }
     
 }
 module.exports = new MeController();

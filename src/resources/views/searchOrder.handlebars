@@ -1,0 +1,56 @@
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <input class="form-control mr-sm-2 search" type="text"  placeholder="Nhập mã đơn hàng" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Tra cứu đơn hàng</button>
+  </form>
+</nav>
+<h5 class='hidden'>Không tìm thấy đơn hàng.</h5>
+<div class="mt-4" style='background-color: {{content.colorForm}}'>
+    <h3 style='margin-left: 5px'><span class="material-icons-two-tone md-36">receipt_long</span>Đơn hàng của bạn</h3>
+        <ul class="list-group">
+            <li class="list-group-item active">Đơn hàng #{{order._id}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">person</span>Người đặt hàng: {{order.name}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">inventory_2</span>Sản phẩm: {{order.nameItems}}</li>
+            <li class="list-group-item total-mn"></li>
+            <li class="hidden total-nb">{{order.total}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">home</span>Địa chỉ: {{order.address}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">phone</span>Số điện thoại: {{order.phoneNumber}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">history</span>Thời gian đặt hàng: {{order.createdAt}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">edit_note</span>Ghi chú khách hàng: {{order.note}}</li>
+            <li class="list-group-item">Trạng thái: {{order.status}}<i></i></li>
+            <p class='hidden status'>{{order.status}}</p>
+        </ul>
+</div>
+<script>
+    var searchValue = document.getElementsByClassName('search')[0]
+    var searchBtn = document.getElementsByClassName('btn')[0]
+    searchBtn.onclick = function(){
+        if(isNaN(parseFloat(searchValue.value))){
+          alert('Mã đơn hàng ko đúng định dạng, vui lòng chỉ nhập số.')
+        }else{
+          window.location.href = '?search=' + searchValue.value
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      var iTag = document.getElementsByTagName('i')[0]
+      var status = document.getElementsByClassName('status')[0]
+      if (status.innerText == 'Chờ xác nhận'){
+        iTag.innerText = ' - Đơn hàng của bạn đã được gửi thành công và đang chờ người bán xác nhận.'
+      }else if (status.innerText == 'Đã xác nhận'){
+        iTag.innerText = ' - Đơn hàng của bạn đã được người bán xác nhận, đơn hàng sẽ được giao cho đơn vị vận chuyển trong thời gian sớm nhất.'
+      }else if (status.innerText == 'Đang giao hàng'){
+        iTag.innerText = ' - Đơn hàng của bạn đã được giao cho đơn vị vận chuyển và sẽ đến trong vòng 3-4 ngày tới. Hãy chờ điện thoại của shipper nhé!'
+      }else if (status.innerText == 'Hoàn thành'){
+        iTag.innerText = ' - Đơn hàng đã giao thành công! Xin cảm ơn sự tin tưởng của bạn đối với shop! Mong bạn sẽ hài lòng với sản phẩm của chúng tôi!'
+      }else{
+        document.getElementsByClassName('mt-4')[0].classList.add('hidden')
+      }
+      if (window.location.href !== 'http://localhost:3000/searchOrder' && status.innerText == ''){
+        document.getElementsByTagName('h5')[0].classList.remove('hidden')
+      }
+      var hidden = document.getElementsByClassName('total-nb')
+        var number = parseFloat(hidden[0].innerHTML)
+        var totalDel = "<span class='material-icons-two-tone'>attach_money</span>Tổng đơn hàng: " + Number(number.toFixed(2)).toLocaleString() + " vnđ"
+        document.getElementsByClassName('total-mn')[0].innerHTML = totalDel
+    })
+</script>

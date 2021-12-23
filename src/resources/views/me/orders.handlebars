@@ -1,43 +1,65 @@
+<form name='container-form' method='POST' action="/orders/deleteMany">
+  <h3>Quản lý đơn hàng</h3>
+  <a href='/me/trash/orders' style='margin-right: 900px'><span class="material-icons">delete_outline</span>Thùng rác</a>
+  <div class="form-check" style='display:inline-block;margin-right:40px'>
+        <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+        <label class="form-check-label" for="checkbox-all">
+          Chọn tất cả
+        </label>
+      </div>
+    <button type="submit" class="btn btn-danger btn-sm checkallSubmitBtn">Xóa nhiều đơn hàng</button>
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    
+    <table class="table table-bordered table-striped mb-0">
+      <thead>
+        <tr>
+          <th scope="col" colspan='2'>#</th>
+          <th scope="col">Khách hàng</th>
+          <th scope="col">Số điện thoại</th>
+          <th scope="col" >
+            Thời gian đặt hàng
+            {{{sortable 'createdAt' _sort}}}
+          </th>
+          <th scope="col">
+            Trạng thái
+            {{{sortable 'status' _sort}}}</th>
+          <th scope="col"colspan='2'>Hành động</th>
 
-<h3>Quản lý đơn hàng</h3>
-<div class="table-wrapper-scroll-y my-custom-scrollbar">
-  
-  <table class="table table-bordered table-striped mb-0">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Khách hàng</th>
-        <th scope="col">Số điện thoại</th>
-        <th scope="col">Tổng đơn giá</th>
-        <th scope="col" >Thời gian tạo</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col"colspan='2'>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+        <tr>
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{this._id}}" name='orderIds[]'>
+            </div>
+          </td>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.phoneNumber}}</td>
+          <td>{{this.createdAt}}</td>
+          <td>{{this.status}}</td>
+          <td>
+              <button type="button" class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="xem đơn hàng" onclick="window.location.href='/orders/{{this._id}}/view'"><span class="material-icons">remove_red_eye</span></button>
+              <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-order" style='cursor:pointer' data-toggle="tooltip" data-placement="top" title="xóa"><span class="material-icons">backspace</span></a>
+          </td>
 
-      </tr>
-    </thead>
-    <tbody>
-      {{#each orders}}
-      <tr>
-        <th scope="row">{{sum @index 1}}</th>
-        <td>{{this.name}}</td>
-        <td>{{this.phoneNumber}}</td>
-        <td class='total-mn'></td>
-        <td class='hidden total-nb'>{{this.total}}</td>
-        <td>{{this.createdAt}}</td>
-        <td>{{this.status}}</td>
-        <td>
-            <button type="button" class="btn btn-dark btn-sm" onclick="window.location.href='/orders/{{this._id}}/view'"><span class="material-icons">remove_red_eye</span></button>
-            <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-order" style='cursor:pointer'><span class="material-icons">backspace</span></a>
-        </td>
+        </tr>
+        {{else}}
+          <tr>
+            <td colspan="7" class='text-center'>
+            Bạn chưa có đơn hàng nào.
+            </td>
+          </tr>
+        {{/each}}
+        
+        
+      </tbody>
+    </table>
 
-      </tr>
-      {{/each}}
-      
-      
-    </tbody>
-  </table>
-
-</div>
+  </div>
+</form>
 <!-- Modal -->
 <div class="modal fade" id="delete-order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -66,7 +88,11 @@
 
         var orderId;
         var deleteForm = document.forms['delete-form-order'];
-        var btnDelete = document.getElementById('btn-delete')
+        var btnDelete = document.getElementById('btn-delete');
+        var checkboxAll = $('#checkbox-all');
+        var orderCheckbox = $('input[name="orderIds[]"]');
+        var checkallSubmitBtn = $('.checkallSubmitBtn');
+        var containerForm = document.forms['container-form']
         $('#delete-order').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) 
         orderId = button.data('id')
@@ -77,14 +103,33 @@
             deleteForm.action = "/orders/" + orderId + "?_method=DELETE";
             deleteForm.submit()
         }
+        checkboxAll.change(function(){
+          var isCheckedAll = $(this).prop('checked');
+          orderCheckbox.prop('checked', isCheckedAll);
+          renderCheckedAllSubmitBtn()
+        })
+        orderCheckbox.change(function(){
+          var isCheckedAll = orderCheckbox.length === $('input[name="orderIds[]"]:checked').length;
+          checkboxAll.prop('checked', isCheckedAll);
+          renderCheckedAllSubmitBtn()
+        })
+        
+
+        function renderCheckedAllSubmitBtn(){
+          var checkedCount = $('input[name="orderIds[]"]:checked').length
+          if (checkedCount > 0){
+            checkallSubmitBtn.attr('disabled', false)
+
+          }else{
+            checkallSubmitBtn.attr('disabled', true)
+          }
+        }
+        renderCheckedAllSubmitBtn()
         
     })
-    var hidden = document.getElementsByClassName('total-nb')
-    for (var i=0; i< hidden.length; i++){
-      var number = parseFloat(hidden[i].innerHTML)
-      var totalDel = Number(number.toFixed(2)).toLocaleString()
-      document.getElementsByClassName('total-mn')[i].innerHTML = totalDel
-    }
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
 
     
 </script>

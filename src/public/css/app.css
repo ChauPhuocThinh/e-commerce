@@ -12,7 +12,7 @@ a {
   text-decoration: none; }
 
 h3 {
-  margin-top: 30px; }
+  margin-top: 20px; }
 
 .users-avatar {
   width: 28px;
@@ -53,7 +53,14 @@ footer {
   z-index: 1;
   padding-right: 30px; }
 
-.material-icons {
+.divfix2 {
+  right: 0;
+  position: fixed;
+  z-index: 1;
+  padding-right: 30px;
+  padding-top: 60px; }
+
+.material-icons, svg {
   vertical-align: middle;
   margin-right: 2px; }
 
@@ -121,3 +128,9 @@ footer {
   -webkit-animation: xoayvong 0.5s linear 0s infinite;
   -moz-animation: xoayvong 0.5s linear 0s infinite;
   -o-animation: xoayvong 0.5s linear 0s infinite; }
+
+.btn {
+  border-radius: 32px !important; }
+
+.dropdown-item {
+  cursor: pointer; }

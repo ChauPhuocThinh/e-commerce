@@ -11,6 +11,7 @@ const User = new Schema({
     ID: { type: String},
     dateofBirth: { type: String},
     role: { type: String},
+    display: { type: Boolean, default: true},
     createdAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now },
 });

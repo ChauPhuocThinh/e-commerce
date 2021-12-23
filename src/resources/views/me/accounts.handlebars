@@ -1,4 +1,4 @@
-<h3 ><span class="material-icons-two-tone md-36">account_box</span>Quản lý sản phẩm</h3><div style='margin-left: 980px'><button type="button" class="btn btn-success btn-sm" onclick="window.location.href='/users/signup'" style='position: right'><span class="material-icons-two-tone">person_add</span>Tạo tài khoản</button></div>
+<h3 ><span class="material-icons-two-tone md-36">account_box</span>Quản lý tài khoản</h3><div style='margin-left: 991px'><button type="button" class="btn btn-success btn-sm" onclick="window.location.href='/users/signup'" style='position: right'>Tạo tài khoản</button></div>
 <div class="table-wrapper-scroll-y my-custom-scrollbar">
     
     <table class="table table-bordered table-striped mb-0">
@@ -8,7 +8,10 @@
                 <th scope="col">Tên tài khoản</th>
                 <th scope="col">Email</th>
                 <th scope="col">Số điện thoại</th>
-                <th scope="col" colspan='2'>Phân quyền</th>
+                <th scope="col" colspan='2'>
+                  Phân quyền
+                  {{{sortable 'role' _sort}}}</th>
+                <th scope="col" >Xóa</th>
             </tr>
         </thead>
         <tbody>
@@ -20,11 +23,9 @@
                 <td scope="row" >{{this.phoneNumber}}</td>
                 <td scope="row">{{this.role}}</td>
                 <td>
-                    <button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/users/user/{{this._id}}'"><span class="material-icons-two-tone">manage_accounts</span>Chỉnh sửa</button>
-                    <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-item" style='cursor:pointer'><span class="material-icons-two-tone">backspace</span></a>
-                    
+                    <button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/users/user/{{this._id}}'"><span class="material-icons-two-tone">manage_accounts</span>Chỉnh sửa</button>   
                 </td>
-
+                <td><a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-item" style='cursor:pointer'><span class="material-icons-two-tone">backspace</span></a></td>
             </tr>
             {{/each}}
             
@@ -38,13 +39,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Xóa tài khoản</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Bạn chắc chắn muốn xóa sản phẩm này?
+        Bạn chắc chắn muốn xóa tài khoản này?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
@@ -72,6 +73,12 @@
             deleteForm.action = "/me/accounts/" + itemId + "?_method=DELETE";
             deleteForm.submit()
         }
-        
+        var role = document.getElementsByClassName('role-account')
+        var account = document.getElementsByClassName('account')
+        for(var i=0;role.length<0;i++){
+          console.log('ok')
+        }
     })
+    
+    
 </script>
