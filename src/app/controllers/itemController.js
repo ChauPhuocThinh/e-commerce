@@ -57,8 +57,7 @@ class ItemController {
     }
     //[POST] /items/store
     createHandle(req, res, next) {
-        const formData = req.body;
-        const item = new Item(formData);
+        const item = new Item(req.body);
         item.save();
         res.redirect('/me/stored/items');
     }
