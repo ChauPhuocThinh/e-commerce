@@ -94,7 +94,7 @@ class MeController {
     //[GET] /me/edit
     edit(req, res, next) {
         if (req.query.hasOwnProperty('_delete')){
-            const path = req.query.name
+            const path = req.query.name.replace('./uploads\\','./uploads/')
             fs.unlinkSync(path)
         }
         res.render('./me/edit');
