@@ -60,7 +60,8 @@ footer {
   padding-right: 30px;
   padding-top: 60px; }
 
-.material-icons, svg {
+.material-icons,
+svg {
   vertical-align: middle;
   margin-right: 2px; }
 
@@ -134,3 +135,13 @@ footer {
 
 .dropdown-item {
   cursor: pointer; }
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 5px; }
+
+body {
+  background: #ccccd4;
+  background: linear-gradient(90deg, #ccccd4 0%, #bcbcf7 34%, #9f9fff 65%, #8cc7d3 100%); }

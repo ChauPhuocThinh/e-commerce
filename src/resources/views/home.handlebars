@@ -10,7 +10,6 @@
       <span class="material-icons">manage_search</span>
     </button>
 </div>
-
 <!--Poster-->
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
@@ -104,7 +103,7 @@
                 <div class="card-body">
                     <a style="text-decoration: none" href='/items/{{this.slug}}'>
                         <h6 class="card-title">{{this.name}}</h6></a>
-                    <p class="card-text" id="detail" style='white-space: pre-line; font-size:12px' onclick="window.location.href='/items/{{this.slug}}'">{{this.description}}</p>
+                    <p class="card-text" id="detail" style='white-space: pre-line; font-size:12px' onclick="window.location.href='/items/{{this.slug}}'">{{{this.description}}}</p>
                             <p style='margin-bottom: 0px'><del class='price-mn-del'>{{this.priceDel}}</del><h7></h7></p>
                             <h5 class='price-mn'></h5>
                             <h5 class="price" style ='display:none' onclick="window.location.href='/items/{{this.slug}}'">{{this.price}}</h5>
@@ -154,7 +153,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" style='font-size:14px'>Ghi chú</span>
                         </div>
-                        <input type='text' class="form-control" aria-label="With textarea" id="note" name='note'></textarea>
+                        <textarea type='text' class="form-control" aria-label="With textarea" id="note" name='note'></textarea>
         </div>
                     <input type="hidden" value='' id='nameItems' name='nameItems' >
                     <input type="hidden"  value =''  id='total-items' name='total'>

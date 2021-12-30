@@ -1,14 +1,16 @@
 <h3 style='margin-top:-5px'>Chỉnh sửa hồ sơ</h3>
-<form method="POST" action='/me?_method=PUT'>
+<form method="POST" action='/me?_method=PUT' enctype="multipart/form-data">
     <div class='mt-4' style='background-color: {{content.colorForm}}'>
     <p class="font-weight-bold">Họ tên đầy đủ: &ensp;<input type='text'  value='{{user.fullName}}' disabled></p><br>
+    <p class="font-weight-bold">Avatar: &ensp;<input type='file' name='avatar' id='image'></p><br>
+    <div><a id='dlt-img' href='?_delete&name=.{{user.avatar}}'><span class="material-icons">close</span></a><img src='{{user.avatar}}' style='max-width:10%' class="img-thumbnail isComplete"></div><br>
     <p class="font-weight-bold">Email: &ensp;<input type='email' name='email' value='{{user.email}}' disabled></p><br>
     <p class="font-weight-bold">Số điện thoại: &ensp;<input type='tel' name='phoneNumber' value='{{user.phoneNumber}}' pattern='\+?(0|84)\d{9}' title='Nhập đúng định dạng số thuê bao Việt Nam'></p><br>
     <p class="font-weight-bold">Số căn cước công dân/CMND: &ensp;<input name='ID' value='{{user.ID}}' disabled></p><br>
     <p class="font-weight-bold">Địa chỉ thường trú: &ensp;<input type='text' name='address' value='{{user.address}}'></p><br>
     <p class="font-weight-bold">Ngày sinh: &ensp;<input type='date' value='{{user.dateofBirth}}' disabled></p><br>
     <p class="font-weight-bold">Quyền hạn của tài khoản: &ensp;
-        <select id="inputGroupSelect01"  value='{{user.role}}' name='role'>
+        <select id="inputGroupSelect01"  value='{{user.role}}' name='role' disabled>
             <option selected>{{user.role}}</option>
             <option value="Mod">Mod</option>
             <option value="Salesman">Salesman</option>
@@ -50,5 +52,17 @@
     }
     newPass.onchange = check;
     testPass.onkeyup = check;
+    window.addEventListener('DOMContentLoaded', function(){
+        var isCompleteImg = document.getElementsByClassName('isComplete')[0].complete && document.getElementsByClassName('isComplete')[0].naturalWidth !== 0
+        $("#image").on("change", function() {
+            if ($("#image")[0].files.length > 0 &&  isCompleteImg ) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+    })
 
 </script>

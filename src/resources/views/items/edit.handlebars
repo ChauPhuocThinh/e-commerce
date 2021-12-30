@@ -1,6 +1,6 @@
 <div class="mt-4" style='background-color: {{content.colorForm}}'>
     <h3>Cập nhật sản phẩm</h3>
-    <form class='mt-4' method="POST" action='/items/{{item._id}}?_method=PUT'>
+    <form class='mt-4' method="POST" action='/items/{{item._id}}?_method=PUT' enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Tên sản phẩm</label>
@@ -81,11 +81,12 @@
         </div>
         <div class="mb-3">
             <label for="description" >Chi tiết sản phẩm</label>
-            <textarea class="form-control" id="mytextarea" id="detail" name='detail' style='height: 300px'required>{{item.detail}}</textarea>
+            <textarea class="form-control toHTML" id="mytextarea" id="detail" name='detail' style='height: 300px'required>{{item.detail}}</textarea>
         </div>
         <div class="mb-3">
-            <label for="description" >Link hình ảnh</label>
-            <input type="text" class="form-control"  value='{{item.image}}' id="image" name='image'required>
+            <label for="description" >Hình ảnh</label>
+            <input type="file" class="form-control" id="image" name='image'>
+            <div><a id='dlt-img' href='?_delete&name=.{{item.image}}'><span class="material-icons">close</span></a><img src='{{item.image}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">
@@ -108,4 +109,17 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block "><span class="material-icons">save</span>Lưu lại</button>
     </form>
 </div>
-
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var isCompleteImg = document.getElementsByClassName('isComplete')[0].complete && document.getElementsByClassName('isComplete')[0].naturalWidth !== 0
+        $("#image").on("change", function() {
+            if ($("#image")[0].files.length > 0 && isCompleteImg) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+    })
+</script>

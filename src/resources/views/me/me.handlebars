@@ -1,5 +1,6 @@
 <h3 style='margin-top:-5px'>Hồ sơ của tôi</h3><button type="button" class="btn btn-light" onclick="window.location.href='/me/edit'"><span class="material-icons">edit</span></button>
 <div class='mt-4' style='background-color: {{content.colorForm}}'>
+    <img src='{{user.avatar}}' style='max-width:10%' class="img-thumbnail"><br>
     <p class="font-weight-bold">Họ tên đầy đủ: &ensp;<p class="font-weight-light">{{user.fullName}}</p></p><br>
     <p class="font-weight-bold">Email: &ensp;<p class="font-weight-light">{{user.email}}</p></p><br>
     <p class="font-weight-bold">Số điện thoại: &ensp;<p class="font-weight-light">{{user.phoneNumber}}</p></p><br>

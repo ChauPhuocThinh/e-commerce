@@ -45,7 +45,7 @@
       }else{
         document.getElementsByClassName('mt-4')[0].classList.add('hidden')
       }
-      if (window.location.href !== 'http://localhost:3000/searchOrder' && status.innerText == ''){
+      if (window.location.href !== 'https://smartphone-store-do-an3.herokuapp.com/searchOrder' && status.innerText == ''){
         document.getElementsByTagName('h5')[0].classList.remove('hidden')
       }
       var hidden = document.getElementsByClassName('total-nb')
@@ -54,3 +54,12 @@
         document.getElementsByClassName('total-mn')[0].innerHTML = totalDel
     })
 </script>
+<style>
+    footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    }
+</style>

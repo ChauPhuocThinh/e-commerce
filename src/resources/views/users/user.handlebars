@@ -1,6 +1,7 @@
 <h3 style='margin-top:-5px'>Chỉnh sửa hồ sơ</h3>
 <form method="POST" action='/users/user/{{account._id}}?_method=PUT'>
     <div class='mt-4' style='background-color: {{content.colorForm}}'>
+    <img src='{{account.avatar}}' style='max-width:10%' class="img-thumbnail"><br>
     <p class="font-weight-bold">Họ tên đầy đủ: &ensp;<input type='text'  value='{{account.fullName}}' disabled></p><br>
     <p class="font-weight-bold">Email: &ensp;<input type='email' value='{{account.email}}' disabled></p><br>
     <p class="font-weight-bold">Số điện thoại: &ensp;<input type='tel' value='{{account.phoneNumber}}' disabled></p><br>

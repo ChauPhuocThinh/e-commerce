@@ -21,6 +21,6 @@ const Item = new Schema({
     updateAt: { type: Date, default: Date.now },
 });
 
-Item.plugin(mongooseDelete, { overrideMethods: 'all', deletedAt : true });
+Item.plugin(mongooseDelete, { overrideMethods: 'all', deletedAt: true });
 
 module.exports = mongoose.model('Item', Item);

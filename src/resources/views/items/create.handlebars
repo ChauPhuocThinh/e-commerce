@@ -1,6 +1,6 @@
 <div class="mt-4" style='background-color: {{content.colorForm}}'>
     <h3><span class="material-icons-two-tone md-36">add_business</span>Đăng sản phẩm</h3>
-    <form method="POST" action='/items/store'>
+    <form method="POST" action='/items/store' enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Tên sản phẩm</label>
@@ -81,11 +81,11 @@
         </div>
         <div class="mb-3">
             <label >Chi tiết sản phẩm</label>
-            <textarea class="form-control" id="detail" id="mytextarea" name='detail' style='height: 300px' placeholder="Mỗi đề mục cách nhau 2 dấu xuống hàng" ></textarea>
+            <textarea class="form-control toHTML" id="detail" id="mytextarea" name='detail' style='height: 300px' placeholder="Mỗi đề mục cách nhau 2 dấu xuống hàng" ></textarea>
         </div>
         <div class="mb-3">
-            <label >Link hình ảnh</label>
-            <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' id="image" name='image' required>
+            <label >Hình ảnh</label>
+            <input type="file" class="form-control" id="image" name='image' required>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3">

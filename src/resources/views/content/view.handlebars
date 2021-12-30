@@ -1,6 +1,6 @@
 <h3 style='margin-top:-5px'><span class="material-icons-two-tone md-36">brush</span>Giao diện</h3>
 <div class='mt-4' style='background-color: {{content.colorForm}}'>
-    <form method='POST' action="/content/view?_method=PUT">
+    <form method='POST' action="/content/view?_method=PUT" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Tên cửa hàng</label>
@@ -38,17 +38,15 @@
             <label for="description" >Trang 'Về chúng Tôi'</label>
             <textarea class="form-control" id="aboutusContent1" id="mytextarea" name='aboutusContent' style='height: 500px'required>{{content.aboutusContent}}</textarea>
         </div>
-        <div class="mb-3">Hình Poster 1 (830x300)</label>
-            <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' value='{{content.poster1}}' id="poster1" name='poster1'>
+        <div class="mb-3">Hình ảnh Poster (830x300) x 3<p class="font-weight-light" style='color:red'>(Bạn phải xóa ảnh cũ trước khi thêm ảnh mới.)</p></label>
+            <input type="file" class="form-control" id='images' name='poster123' multiple>
+            <div><a class='dlt-img' href='?_delete&name=.{{content.poster1}}'><span class="material-icons">close</span></a><img src='{{content.poster1}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+            <div><a class='dlt-img' href='?_delete&name=.{{content.poster2}}'><span class="material-icons">close</span></a><img src='{{content.poster2}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+            <div><a class='dlt-img' href='?_delete&name=.{{content.poster3}}'><span class="material-icons">close</span></a><img src='{{content.poster3}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
         </div>
-        <div class="mb-3">Hình Poster 2 (830x300)</label>
-            <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' value='{{content.poster2}}' id="poster2" name='poster2'>
-        </div>
-        <div class="mb-3">Hình Poster 3 (830x300)</label>
-            <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' value='{{content.poster3}}' id="poster3" name='poster3'>
-        </div>
-        <div class="mb-3">Hình Poster 4 (1200x90)</label>
-            <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' value='{{content.poster4}}' id="poster4" name='poster4'>
+        <div class="mb-3">Hình Event (1200x90)<p class="font-weight-light" style='color:red'>(Bạn phải xóa ảnh cũ trước khi thêm ảnh mới.)</p></label>
+            <input type="file" class="form-control"  name='poster4' id='image'>
+            <div><a class='dlt-img' href='?_delete&name=.{{content.poster4}}'><span class="material-icons">close</span></a><img src='{{content.poster4}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
         </div>
         <div class="mb-3">Thông tin liên hệ (số điện thoại/cửa hàng)</label>
             <input type="text" class="form-control"  value='{{content.contact}}' id="contact" name='contact'>
@@ -57,5 +55,34 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block "><span class="material-icons">save</span>Lưu lại</button>
     </form>
 
-
 </div>
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var isCompleteImg = document.getElementsByClassName('isComplete')[0].complete && document.getElementsByClassName('isComplete')[0].naturalWidth !== 0
+        var isCompleteImg2 = document.getElementsByClassName('isComplete')[1].complete && document.getElementsByClassName('isComplete')[1].naturalWidth !== 0
+        var isCompleteImg3 = document.getElementsByClassName('isComplete')[2].complete && document.getElementsByClassName('isComplete')[2].naturalWidth !== 0
+        $("#images").on("change", function() {
+            if ($("#images")[0].files.length > 3) {
+                alert("Bạn chỉ có thể chọn tối đa 3 hình ảnh!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else if ($("#images")[0].files.length > 0 &&  (isCompleteImg || isCompleteImg2 || isCompleteImg3) ) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+        var isCompleteImg4 = document.getElementsByClassName('isComplete')[3].complete && document.getElementsByClassName('isComplete')[3].naturalWidth !== 0
+        $("#image").on("change", function() {
+            if ($("#image")[0].files.length > 0 &&  isCompleteImg4) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+    })
+    
+</script>
