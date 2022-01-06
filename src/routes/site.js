@@ -6,5 +6,5 @@ router.get('/', siteController.index);
 router.post('/orderitems', siteController.orderHandle);
 router.get('/aboutus', siteController.aboutUs);
 router.get('/searchOrder', siteController.searchOrder);
-
+router.get('/searchItems', siteController.searchItems);
 module.exports = router;

@@ -1,0 +1,35 @@
+  <p class="result-count"></p>
+  <h5 class='hidden'>Không tìm thấy sản phẩm có từ khóa bạn vừa nhập.</h5>
+  <div class="list-group">
+    {{#each items}}
+      <a href="/items/{{this.slug}}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <p class="mb-1">{{this.name}}</p>
+        </div>
+        <small class='price'></small>
+        <small class="hidden price-hd">{{this.price}}</small>
+      </a>
+    {{/each}}
+  </div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<script>
+    //Định dạng tiền tệ
+    var hidden = document.getElementsByClassName('price-hd')
+    for (var i=0; i< hidden.length; i++){
+      var number = parseFloat(hidden[i].innerHTML)
+      var price_Del = Number(number.toFixed(2)).toLocaleString()
+      document.getElementsByClassName('price')[i].innerText = price_Del + " đ"
+    }
+    var countItems = document.getElementsByClassName('list-group-item').length
+    if (countItems > 0 ){
+      document.getElementsByClassName('result-count')[0].innerHTML = 'Có ' + countItems + ' kết quả tìm thấy:'
+    }else{
+      document.getElementsByTagName('h5')[0].classList.remove('hidden')
+    }
+</script>

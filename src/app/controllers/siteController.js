@@ -136,12 +136,13 @@ class SiteController {
 
         //res.render('home');
     }
-    //[GET] /search
+    //[GET] /searchOrder
     searchOrder(req, res, next) {
         if (req.query.search) {
             Order.findOne({ _id: parseFloat(req.query.search) })
                 .then((order) => {
                     res.render('searchOrder', {
+                        id: req.query.search,
                         order: mongooseToObject(order),
                     });
                 })
@@ -162,6 +163,16 @@ class SiteController {
 
     aboutUs(req, res, next) {
         res.render('aboutus');
+    }
+    //[GET] /searchItems
+    searchItems(req, res, next) {
+        Item.find({'name': {'$regex': req.query.key, '$options': 'i'}})
+            .then((items)=> {
+                res.render('searchItems',{
+                    items: mutipleMongooseToObject(items),
+                    key: req.query.key
+                })
+            })
     }
 }
 module.exports = new SiteController();

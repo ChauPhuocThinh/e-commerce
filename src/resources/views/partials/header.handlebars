@@ -4,7 +4,10 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="text" value='{{key}}' id='search-value' placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" id='search-items' type="button">Tìm kiếm</button>
+    </form>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
       <ul class="navbar-nav ml-auto ">
@@ -61,4 +64,10 @@
     }if(role == 'Mod'){
       accounts.classList.add('hidden')
     }
+    searchValue = document.getElementById('search-value')
+    btnSearchItems = document.getElementById('search-items');
+    btnSearchItems.onclick = function(){
+      window.location.href = '/searchItems?key=' + searchValue.value
+    }
+
 </script>

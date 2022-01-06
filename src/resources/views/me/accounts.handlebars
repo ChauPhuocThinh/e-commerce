@@ -18,7 +18,7 @@
             {{#each users}}
             <tr>
                 <th scope="row">{{sum @index 1}}</th>
-                <td scope="row">{{this.fullName}}</td>
+                <td scope="row"><img class='user-avatar' src='{{this.avatar}}'> {{this.fullName}}</td>
                 <td scope="row" >{{this.email}}</td>
                 <td scope="row" >{{this.phoneNumber}}</td>
                 <td scope="row">{{this.role}}</td>

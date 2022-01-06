@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
-    <input class="form-control mr-sm-2 search" type="text"  placeholder="Nhập mã đơn hàng" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Tra cứu đơn hàng</button>
+    <input class="form-control mr-sm-2 search value-searchOrder" type="text" value='{{id}}' placeholder="Nhập mã đơn hàng" aria-label="Search">
+    <button class="btn-searchOrder btn btn-outline-success my-2 my-sm-0" type="button">Tra cứu đơn hàng</button>
   </form>
 </nav>
 <h5 class='hidden'>Không tìm thấy đơn hàng.</h5>
@@ -17,13 +17,21 @@
             <li class="list-group-item"><span class="material-icons-two-tone">phone</span>Số điện thoại: {{order.phoneNumber}}</li>
             <li class="list-group-item"><span class="material-icons-two-tone">history</span>Thời gian đặt hàng: {{order.createdAt}}</li>
             <li class="list-group-item"><span class="material-icons-two-tone">edit_note</span>Ghi chú khách hàng: {{order.note}}</li>
-            <li class="list-group-item">Trạng thái: {{order.status}}<i></i></li>
+            <li class="list-group-item">Trạng thái: <i></i></li>
             <p class='hidden status'>{{order.status}}</p>
         </ul>
 </div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+
 <script>
-    var searchValue = document.getElementsByClassName('search')[0]
-    var searchBtn = document.getElementsByClassName('btn')[0]
+    var searchValue = document.getElementsByClassName('value-searchOrder')[0]
+    var searchBtn = document.getElementsByClassName('btn-searchOrder')[0]
     searchBtn.onclick = function(){
         if(isNaN(parseFloat(searchValue.value))){
           alert('Mã đơn hàng ko đúng định dạng, vui lòng chỉ nhập số.')
@@ -34,14 +42,14 @@
     document.addEventListener('DOMContentLoaded', function(){
       var iTag = document.getElementsByTagName('i')[0]
       var status = document.getElementsByClassName('status')[0]
-      if (status.innerText == 'Chờ xác nhận'){
-        iTag.innerText = ' - Đơn hàng của bạn đã được gửi thành công và đang chờ người bán xác nhận.'
-      }else if (status.innerText == 'Đã xác nhận'){
-        iTag.innerText = ' - Đơn hàng của bạn đã được người bán xác nhận, đơn hàng sẽ được giao cho đơn vị vận chuyển trong thời gian sớm nhất.'
-      }else if (status.innerText == 'Đang giao hàng'){
-        iTag.innerText = ' - Đơn hàng của bạn đã được giao cho đơn vị vận chuyển và sẽ đến trong vòng 3-4 ngày tới. Hãy chờ điện thoại của shipper nhé!'
-      }else if (status.innerText == 'Hoàn thành'){
-        iTag.innerText = ' - Đơn hàng đã giao thành công! Xin cảm ơn sự tin tưởng của bạn đối với shop! Mong bạn sẽ hài lòng với sản phẩm của chúng tôi!'
+      if (status.innerText == 'a'){
+        iTag.innerText = ' Chờ xác nhận - Đơn hàng của bạn đã được gửi thành công và đang chờ người bán xác nhận.'
+      }else if (status.innerText == 'b'){
+        iTag.innerText = ' Đã xác nhận - Đơn hàng của bạn đã được người bán xác nhận, đơn hàng sẽ được giao cho đơn vị vận chuyển trong thời gian sớm nhất.'
+      }else if (status.innerText == 'c'){
+        iTag.innerText = ' Đang giao hàng - Đơn hàng của bạn đã được giao cho đơn vị vận chuyển và sẽ đến trong vòng 3-4 ngày tới. Hãy chờ điện thoại của shipper nhé!'
+      }else if (status.innerText == 'd'){
+        iTag.innerText = ' Đã hoàn thành - Đơn hàng đã giao thành công! Xin cảm ơn sự tin tưởng của bạn đối với shop! Mong bạn sẽ hài lòng với sản phẩm của chúng tôi!'
       }else{
         document.getElementsByClassName('mt-4')[0].classList.add('hidden')
       }
@@ -54,12 +62,3 @@
         document.getElementsByClassName('total-mn')[0].innerHTML = totalDel
     })
 </script>
-<style>
-    footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 60px;
-    width: 100%;
-    }
-</style>

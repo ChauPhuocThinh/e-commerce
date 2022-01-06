@@ -39,7 +39,7 @@
           <td>{{this.name}}</td>
           <td>{{this.phoneNumber}}</td>
           <td>{{this.createdAt}}</td>
-          <td>{{this.status}}</td>
+          <td class='status-show'>{{this.status}}</td>
           <td>
               <button type="button" class="btn btn-dark btn-sm" data-toggle="tooltip" data-placement="top" title="xem đơn hàng" onclick="window.location.href='/orders/{{this._id}}/view'"><span class="material-icons">remove_red_eye</span></button>
               <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-order" style='cursor:pointer' data-toggle="tooltip" data-placement="top" title="xóa"><span class="material-icons">backspace</span></a>
@@ -94,10 +94,8 @@
         var checkallSubmitBtn = $('.checkallSubmitBtn');
         var containerForm = document.forms['container-form']
         $('#delete-order').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) 
-        orderId = button.data('id')
-        console.log(orderId)
-       
+          var button = $(event.relatedTarget) 
+          orderId = button.data('id')
         })
         btnDelete.onclick = function () {
             deleteForm.action = "/orders/" + orderId + "?_method=DELETE";
@@ -125,7 +123,20 @@
           }
         }
         renderCheckedAllSubmitBtn()
-        
+        ////
+        var status = document.getElementsByClassName('status-show')
+        for (var i = 0; i < status.length; i++){
+          if (status[i].innerHTML == 'a'){
+              status[i].innerHTML = 'Mới'
+          }else if (status[i].innerHTML == 'b'){
+              status[i].innerHTML = 'Đã xác nhận'
+          }else if (status[i].innerHTML == 'c'){
+              status[i].innerHTML = 'Đang giao hàng'
+          }else if (status[i].innerHTML == 'd'){
+              status[i].innerHTML = 'Hoàn thành'
+          }
+        }
+        ////
     })
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()

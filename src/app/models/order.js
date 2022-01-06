@@ -10,7 +10,7 @@ const Order = new Schema(
         phoneNumber: { type: String, maxLength: 255 },
         note: { type: String },
         _id: { type: Number },
-        status: { type: String, default: 'Chờ xác nhận' },
+        status: { type: String, default: 'a' },
         createdAt: { type: Date, default: Date.now },
         updateAt: { type: Date, default: Date.now },
     },
