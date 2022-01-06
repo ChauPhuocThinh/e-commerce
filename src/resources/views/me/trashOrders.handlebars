@@ -7,7 +7,7 @@
       Chọn tất cả
     </label>
   </div>
-  <button type="submit" class="btn btn-danger btn-sm checkallSubmitBtn">Khôi phục nhiều đơn hàng</button>
+  <button type="submit" class="btn btn-success btn-sm checkallSubmitBtn">Khôi phục nhiều đơn hàng</button>
   <div class="table-wrapper-scroll-y my-custom-scrollbar">
 
       <table class="table table-bordered table-striped mb-0">
@@ -38,7 +38,7 @@
             <td>{{this.name}}</td>
             <td>{{this.phoneNumber}}</td>
             <td>{{this.deletedAt}}</td>
-            <td>{{this.status}}</td>
+            <td class='status-show'>{{this.status}}</td>
             <td>
                 <button type="button" class="btn btn-light btn-sm btn-restore" data-id='{{this._id}}'><span class="material-icons-two-tone">restore_from_trash</span></button>
                 <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-order" style='cursor:pointer'><span class="material-icons">backspace</span></a>
@@ -132,6 +132,19 @@
           }
         }
         renderCheckedAllSubmitBtn()
+
+        var status = document.getElementsByClassName('status-show')
+        for (var i = 0; i < status.length; i++){
+          if (status[i].innerHTML == 'a'){
+              status[i].innerHTML = 'Mới'
+          }else if (status[i].innerHTML == 'b'){
+              status[i].innerHTML = 'Đã xác nhận'
+          }else if (status[i].innerHTML == 'c'){
+              status[i].innerHTML = 'Đang giao hàng'
+          }else if (status[i].innerHTML == 'd'){
+              status[i].innerHTML = 'Hoàn thành'
+          }
+        }
 
         
     })
