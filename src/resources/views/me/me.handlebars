@@ -1,16 +1,35 @@
-<h3 style='margin-top:-5px'>Hồ sơ của tôi</h3><button type="button" class="btn btn-light" onclick="window.location.href='/me/edit'"><span class="material-icons">edit</span></button>
-<div class='mt-4' style='background-color: {{content.colorForm}}'>
-    <img src='{{user.avatar}}' style='max-width:10%' class="img-thumbnail"><br>
-    <p class="font-weight-bold">Họ tên đầy đủ: &ensp;<p class="font-weight-light">{{user.fullName}}</p></p><br>
-    <p class="font-weight-bold">Email: &ensp;<p class="font-weight-light">{{user.email}}</p></p><br>
-    <p class="font-weight-bold">Số điện thoại: &ensp;<p class="font-weight-light">{{user.phoneNumber}}</p></p><br>
-    <p class="font-weight-bold">Số căn cước công dân/CMND: &ensp;<p class="font-weight-light">{{user.ID}}</p></p><br>
-    <p class="font-weight-bold">Địa chỉ thường trú: &ensp;<p class="font-weight-light">{{user.address}}</p></p><br>
-    <p class="font-weight-bold">Ngày sinh: &ensp;<p class="font-weight-light">{{user.dateofBirth}}</p></p><br>
-    <p class="font-weight-bold">Thời gian tạo tài khoản: &ensp;<p class="font-weight-light">{{user.createdAt}}</p></p><br>
-    <p class="font-weight-bold">Thời gian cập nhật: &ensp;<p class="font-weight-light">{{user.updateAt}}</p></p><br>
-    <p class="font-weight-bold">Quyền hạn của tài khoản: &ensp;<p class="font-weight-light">{{user.role}}</p></p><br>
-</div>
+<h3 style='margin-top:-5px'>Hồ sơ của tôi</h3><a href='/me/edit'>Chỉnh sửa</a>
+<div class='mt-4 shadow-sm p-3 rounded' style='background-color: {{content.colorForm}}'>
+    <img src='{{user.avatar}}' style='max-width:10%' class="rounded float-left">
+    <dl class="row">
+        <dd class="col-sm-3">Họ và tên</dd>
+        <dd class="col-sm-9">{{user.fullName}}</dd>
+    
+        <dd class="col-sm-3">Email</dd>
+        <dd class="col-sm-9">{{user.email}}</dd>
+
+        <dd class="col-sm-3">Số điện thoại</dd>
+        <dd class="col-sm-9">{{user.phoneNumber}}</dd>
+
+        <dd class="col-sm-3">Số căn cước</dd>
+        <dd class="col-sm-9">{{user.ID}}</dd>
+
+        <dd class="col-sm-3">Địa chỉ</dd>
+        <dd class="col-sm-9">{{user.address}}</dd>
+
+        <dd class="col-sm-3">Ngày sinh</dd>
+        <dd class="col-sm-9">{{user.dateofBirth}}</dd>
+
+        <dd class="col-sm-3">Thời gian tạo tài khoản</dd>
+        <dd class="col-sm-9">{{user.createdAt}}</dd>
+
+        <dd class="col-sm-3">Thời gian cập nhật</dd>
+        <dd class="col-sm-9">{{user.updateAt}}</dd>
+
+        <dd class="col-sm-3">Loại tài khoản</dd>
+        <dd class="col-sm-9">{{user.role}}</dd>
+    </dl>
+
 <style>
     p {
         display: inline-block;
@@ -25,5 +44,17 @@
     .material-icons{
         font-size: 14px;
         line-height: 30px;
+    }
+    .col-sm-9 {
+        font-weight: 600;
+        color: rgb(50, 49, 48);
+        text-overflow:ellipsis;
+        -webkit-font-smoothing: antialiased;
+    }
+    .col-sm-3 {
+        font-weight: 400;
+        color: rgb(96, 94, 92);
+        text-overflow:ellipsis;
+        -webkit-font-smoothing: antialiased;
     }
 </style>

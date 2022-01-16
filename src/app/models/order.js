@@ -11,6 +11,7 @@ const Order = new Schema(
         note: { type: String },
         _id: { type: Number },
         status: { type: String, default: 'a' },
+        paymentMethods: { type: String},
         createdAt: { type: Date, default: Date.now },
         updateAt: { type: Date, default: Date.now },
     },

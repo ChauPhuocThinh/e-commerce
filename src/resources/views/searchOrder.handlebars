@@ -5,7 +5,7 @@
   </form>
 </nav>
 <h5 class='hidden'>Không tìm thấy đơn hàng.</h5>
-<div class="mt-4" style='background-color: {{content.colorForm}}'>
+<div class="mt-4 shadow-sm p-3 rounded" style='background-color: {{content.colorForm}}'>
     <h3 style='margin-left: 5px'><span class="material-icons-two-tone md-36">receipt_long</span>Đơn hàng của bạn</h3>
         <ul class="list-group">
             <li class="list-group-item active">Đơn hàng #{{order._id}}</li>
@@ -16,19 +16,19 @@
             <li class="list-group-item"><span class="material-icons-two-tone">home</span>Địa chỉ: {{order.address}}</li>
             <li class="list-group-item"><span class="material-icons-two-tone">phone</span>Số điện thoại: {{order.phoneNumber}}</li>
             <li class="list-group-item"><span class="material-icons-two-tone">history</span>Thời gian đặt hàng: {{order.createdAt}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">payments</span>Phương thức thanh toán: {{order.paymentMethods}}</li>
             <li class="list-group-item"><span class="material-icons-two-tone">edit_note</span>Ghi chú khách hàng: {{order.note}}</li>
             <li class="list-group-item">Trạng thái: <i></i></li>
             <p class='hidden status'>{{order.status}}</p>
         </ul>
 </div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
+<div><br></div>
 <script>
     var searchValue = document.getElementsByClassName('value-searchOrder')[0]
     var searchBtn = document.getElementsByClassName('btn-searchOrder')[0]

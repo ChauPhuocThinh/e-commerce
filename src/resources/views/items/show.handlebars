@@ -1,4 +1,4 @@
-<div class="mt-4"style='background-color: {{content.colorForm}}'>
+<div class="mt-4 shadow-sm p-3 rounded"style='background-color: {{content.colorForm}}'>
     <div class="row">
         <div class="col-lg-3">
             <img class="img-items"  class="card-img-top" src={{item.image}}>
@@ -64,25 +64,31 @@
               <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Họ tên của bạn</span>
               </div>
-              <input type="text" name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+              <input type="text" name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
           </div>
           <div class="input-group input-group-sm mb-3">
               <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Địa chỉ</span>
               </div>
-              <input type="text" name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+              <input type="text" name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
           </div>
           <div class="input-group input-group-sm mb-3">
               <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-sm">Số điện thoại</span>
               </div>
-              <input type="text"  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+              <input type="text"  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
           </div>
           <div class="input-group">
               <div class="input-group-prepend">
                   <span class="input-group-text" style='font-size:14px'>Ghi chú</span>
               </div>
               <textarea type='text' class="form-control" aria-label="With textarea" id="note" name='note'></textarea>
+          </div>
+          <dd style='font-weight: 400; color: rgb(96, 94, 92);'>Phương thức giao hàng:</dd>
+          <div class="custom-control custom-radio">
+            <input name='paymentMethods' value='Thanh toán khi nhận hàng' checked='checked' type="radio" class='custom-control-input' required>
+            <label class="custom-control-label" for="customRadio1" style='font-weight: 600; color: rgb(50, 49, 48);'>Thanh toán khi nhận hàng</label>
+          </div>
         </table>
         <div class="cart-total">
             <strong class="cart-total-title">Tổng Cộng:</strong>
@@ -101,6 +107,7 @@
     </div>
   </div>
 </div>
+<div class="fb-comments" data-href="https://smartphone-store-do-an3.herokuapp.com/items/{{item.slug}}" data-width="1100" data-numposts="5"></div>
 
 
 <script>
@@ -130,6 +137,7 @@
 
       inputNameitems.setAttribute('value', valueNameitems)
     }
+    updatecart()
     var quantityInput = document.getElementsByClassName('cart-quantity-input')
     for (i=0; i < quantityInput.length; i++){
       var input=quantityInput[i]
@@ -141,6 +149,7 @@
         updatecart()
       })
     }
+
     var numberPrice = parseFloat(document.getElementsByClassName('price')[0].innerHTML)
     var numberPriceDel = parseFloat(document.getElementsByClassName('price-del')[0].innerText)
     var priceDel = Number(numberPriceDel.toFixed(2)).toLocaleString()

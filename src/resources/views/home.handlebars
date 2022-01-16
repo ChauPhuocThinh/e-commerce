@@ -1,6 +1,6 @@
 <!--Btn Cart-->
 <div class="divfix">
-    <button id="cart" class="btn btn-info" type="button" data-toggle="modal" data-target="#exampleModal" style='border-radius: 50px; width:50px; height:50px'>
+    <button id="cart" class="btn btn-info" type="button" data-toggle="tooltip" data-placement="left" title="Giỏ hàng" style='border-radius: 50px; width:50px; height:50px'>
       <span class="material-icons-two-tone">shopping_cart</span><span class="badge badge-success" style=' font-size: 14px;'></span>
     </button>
 </div>
@@ -126,7 +126,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Giỏ Hàng</h5>
+                <h6 class="modal-title">Giỏ Hàng</h6>
                 <span class="close">&times;</span>
             </div>
             <form method="POST" action='/orderitems'>
@@ -135,26 +135,31 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Họ tên của bạn</span>
                         </div>
-                        <input type="text" name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        <input type="text" name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Địa chỉ</span>
                         </div>
-                        <input type="text" name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        <input type="text" name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Số điện thoại</span>
                         </div>
-                        <input type="text"  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                        <input type="text"  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
                     </div>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style='font-size:14px'>Ghi chú</span>
                         </div>
                         <textarea type='text' class="form-control" aria-label="With textarea" id="note" name='note'></textarea>
-        </div>
+                    </div>
+                    <dd style='font-weight: 400; color: rgb(96, 94, 92);'>Phương thức giao hàng:</dd>
+                    <div class="custom-control custom-radio">
+                      <input name='paymentMethods' value='Thanh toán khi nhận hàng' checked='checked' type="radio" class='custom-control-input' required>
+                      <label class="custom-control-label" for="customRadio1" style='font-weight: 600; color: rgb(50, 49, 48);'>Thanh toán khi nhận hàng</label>
+                    </div>
                     <input type="hidden" value='' id='nameItems' name='nameItems' >
                     <input type="hidden"  value =''  id='total-items' name='total'>
                     <input type="hidden"  value =''  id='orderId' name='_id'>
@@ -175,6 +180,7 @@
                 <span id='total-del'></span>
                 <span class="cart-total-price" id='total' style='display:none'>0VNĐ</span>
              </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-footer">Đóng</button>
                 <button type="submit" class="btn btn-info order">Đặt hàng</button>

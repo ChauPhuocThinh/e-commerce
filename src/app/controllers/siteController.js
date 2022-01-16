@@ -160,9 +160,17 @@ class SiteController {
             orderId: req.body._id,
         });
     }
-
+    //[GET] /aboutus
     aboutUs(req, res, next) {
         res.render('aboutus');
+    }
+    //[GET] /helps
+    helps(req, res, next) {
+        res.render('helps');
+    }
+    //[GET] /policies
+    policies(req, res, next) {
+        res.render('policies');
     }
     //[GET] /searchItems
     searchItems(req, res, next) {

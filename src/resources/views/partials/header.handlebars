@@ -29,7 +29,7 @@
         </li>
         <li class="nav-item dropdown" >
           <a class="nav-link dropdown-toggle" href="/users/signin" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.fullName}}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style='position:absolute; z-index:2'>
+            <div class="dropdown-menu shadow-sm rounded" aria-labelledby="navbarDropdown" style='position:absolute; z-index:2'>
               <a class="dropdown-item" href="/me"><span class="material-icons-two-tone">account_circle</span>Thông tin cá nhân</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/users/signout"><span class="material-icons-two-tone">logout</span>Đăng xuất</a>
@@ -69,5 +69,12 @@
     btnSearchItems.onclick = function(){
       window.location.href = '/searchItems?key=' + searchValue.value
     }
-
+    $('#search-value').keypress(function(event){
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (keycode == '13') {
+        event.preventDefault()
+        window.location.href = '/searchItems?key=' + searchValue.value
+      }
+    });
+    
 </script>

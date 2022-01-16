@@ -122,28 +122,26 @@ class UserController {
         if (req.body.newPass == '') {
             const update = await User.updateOne(
                 { _id: req.params.id },
-                {
-                    role: req.body.role,
-                },
+                req.body
             )
                 .then(() => res.redirect('/me/accounts'))
                 .catch(next);
         } else {
-            const user = await User.findOne({ _id: req.params.id });
-            const check = await bcrypt.compare(req.body.oldPass, user.password);
-            if (check) {
-                const update = await User.updateOne(
-                    { _id: req.params.id },
-                    {
-                        role: req.body.role,
-                        password: hashedPwd,
-                    },
-                )
+            const update = await User.updateOne(
+                { _id: req.params.id },
+                {
+                    fullName: req.body.fullName,
+                    email: req.body.email,
+                    ID: req.body.ID,
+                    avatar: req.body.avatar,
+                    dateofBirth: req.body.dateofBirth,
+                    address: req.body.address,
+                    role: req.body.role,
+                    password: hashedPwd,
+                },
+            )
                     .then(() => res.redirect('/me/accounts'))
                     .catch(next);
-            } else {
-                res.send('Mật khẩu cũ không đúng!');
-            }
         }
     }
 }
