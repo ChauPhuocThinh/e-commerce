@@ -13,6 +13,23 @@ class SiteController {
                 });
             }
         }
+        // const filter = {}
+        // for (var key in req.query) {
+        //     filter[key] = req.query[key];
+        // }
+        // delete filter._filter
+        // delete filter._sort
+        // delete filter.column
+        // delete filter.typeSort
+        // const itemQuery = Item.find(filter)
+        // sortItems(itemQuery)
+        // itemQuery
+        //     .then((items)=>{
+        //         res.render('home',{
+        //             items: mutipleMongooseToObject(items),
+        //         })
+        //     })
+        //     .catch(next)
         if (!req.query.hasOwnProperty('_filter')) {
             let itemQuery = Item.find({});
             sortItems(itemQuery);

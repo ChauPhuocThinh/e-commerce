@@ -7,6 +7,7 @@ let port = process.env.PORT || 8080;
 const route = require('./routes');
 const db = require('./config/db');
 const bodyParser = require('body-parser');
+var cors = require('cors')
 const methodOverride = require('method-override');
 var session = require('express-session');
 const sortMiddleware = require('./app/middlewares/sortMiddleware');
@@ -71,6 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+app.use(cors())
 route(app);
 
 app.listen(port, () => {
