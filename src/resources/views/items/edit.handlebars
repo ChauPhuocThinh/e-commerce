@@ -1,0 +1,125 @@
+<div class="mt-4 shadow-sm p-3 rounded" style='background-color: {{content.colorForm}}'>
+    <h3>Cập nhật sản phẩm</h3>
+    <form class='mt-4' method="POST" action='/items/{{item._id}}?_method=PUT' enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Tên sản phẩm</label>
+                <input type="text" class="form-control"  value='{{item.name}}' id="name" name='name' required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputPassword4">Hãng</label>
+                <select class="custom-select" id="inputGroupSelect01"  value='{{item.brand}}' name='brand' required>
+                    <option selected>{{item.brand}}</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="Xiaomi">Xiaomi</option>
+                    <option value="OnePlus">OnePlus</option>
+                    <option value="Huawei">Huawei</option>
+                    <option value="Vsmart">Vsmart</option>
+                    <option value="Nokia">Nokia</option>
+                    <option value="Oppo">Oppo</option>
+                    <option value="Vivo">Vivo</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputEmail4">Khoảng giá</label>
+                <select class="custom-select" id="inputGroupSelect01"  value='{{item.priceRange}}' name='priceRange'required>
+                    <option selected>{{item.priceRange}}</option>
+                    <option value="dưới 5 triệu">dưới 5 triệu</option>
+                    <option value="5-10 triệu">5-10 triệu</option>
+                    <option value="10-15 triệu">10-15 triệu</option>
+                    <option value="15-20 triệu">15-20 triệu</option>
+                    <option value="trên 20 triệu">trên 20 triệu</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="name">Hệ điều hành</label>
+                <select class="custom-select" id="inputGroupSelect01"  value='{{item.OS}}' name='OS'required>
+                    <option selected>{{item.OS}}</option>
+                    <option value="Android">Android</option>
+                    <option value="IOS">IOS</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="name">RAM</label>
+                <select class="custom-select" id="inputGroupSelect01"  value='{{item.RAM}}' name='RAM'required>
+                    <option selected>{{item.RAM}}</option>
+                    <option value="4">4GB</option>
+                    <option value="6">6GB</option>
+                    <option value="8">8GB</option>
+                    <option value="12">12GB</option>
+                    <option value="16">16GB</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="name">ROM</label>
+                <select class="custom-select" id="inputGroupSelect01"  value='{{item.ROM}}' name='ROM'required>
+                    <option selected>{{item.ROM}}</option>
+                    <option value="32">32GB</option>
+                    <option value="64">64GB</option>
+                    <option value="128">128GB</option>
+                    <option value="256">256GB</option>
+                    <option value="512">512GB</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="name">Loại</label>
+                <select class="custom-select" id="inputGroupSelect01"  value='{{item.type}}' name='type'required>
+                    <option selected>{{item.type}}</option>
+                    <option value="Điện thoại phổ thông">Điện thoại phổ thông</option>
+                    <option value="Điện thoại cao cấp">Điện thoại cao cấp</option>
+                    <option value="Gaming Phone">Gaming Phone</option>
+                </select>
+            </div>
+        </div>
+            
+        <div class="mb-3" style='margin-top:10px'>
+            <label for="description" >Mô tả sản phẩm</label>
+            <textarea class="form-control" id="description" name='description' style='height: 180px'required>{{item.description}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="description" >Chi tiết sản phẩm</label>
+            <textarea class="form-control toHTML" id="mytextarea" id="detail" name='detail' style='height: 300px'required>{{item.detail}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="description" >Hình ảnh</label>
+            <input type="file" class="form-control" id="image" name='image'>
+            <div><a id='dlt-img' href='?_delete&name=.{{item.image}}'><span class="material-icons">close</span></a><img src='{{item.image}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="description" >Video ID</label>
+                <input type="text" class="form-control"  value='{{item.posterImg}}' id="posterImg" name='posterImg'required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="description" >Giá khuyến mãi</label>
+                <input type="number" class="form-control"  value='{{item.price}}' id="price" name='price'required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="description" >Giá gốc</label>
+                <input type="number" class="form-control"  value='{{item.priceDel}}' id="priceDel" name='priceDel'required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="description" >Dẫn mục (slug)</label>
+                <input type="text" class="form-control"  value='{{item.slug}}' id="slug" name='slug'required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block "><span class="material-icons">save</span>Lưu lại</button>
+    </form>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var isCompleteImg = document.getElementsByClassName('isComplete')[0].complete && document.getElementsByClassName('isComplete')[0].naturalWidth !== 0
+        $("#image").on("change", function() {
+            if ($("#image")[0].files.length > 0 && isCompleteImg) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+    })
+</script>

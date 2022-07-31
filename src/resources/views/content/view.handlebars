@@ -1,0 +1,132 @@
+<h3 style='margin-top:-5px'><span class="material-icons-two-tone md-36">brush</span>Giao diện</h3>
+<div class='mt-4 shadow-sm p-3 rounded' style='background-color: {{content.colorForm}}'>
+    <form method='POST' action="/content/view?_method=PUT" enctype="multipart/form-data">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Thông tin</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Về chúng tôi</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Hỗ trợ</a>
+                <a class="nav-item nav-link" id="nav-policies-tab" data-toggle="tab" href="#nav-policies" role="tab" aria-controls="nav-policies" aria-selected="false">Chính sách</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputEmail4">Tên cửa hàng</label>
+                        <input type="text" class="form-control"  value='{{content.shopName}}' id="shopName" name='shopName' required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputPassword4">Màu sắc navbar</label>
+                        <input  type='color' class="form-control" value='{{content.colorNavbar}}' name='colorNavbar' required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputEmail4">Màu sắc nền sản phẩm</label>
+                        <input  type='color' class="form-control" value='{{content.colorBackground}}' name='colorBackground' required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputEmail4">Màu sắc Form</label>
+                        <input  type='color' class="form-control" value='{{content.colorForm}}' name='colorForm' required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputEmail4">Màu sắc nền trang web</label>
+                        <input  type='color' class="form-control" value='{{content.bodyBackground}}' name='bodyBackground' required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="name">Link Facebook</label>
+                        <input type="text" class="form-control"  value='{{content.linkFB}}' id="linkFB" name='linkFB' pattern="(http|https)://.+" title='Nhập đúng định dạng URL'>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="name">Link Instagram</label>
+                        <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' value='{{content.linkInsta}}' id="linkInsta" name='linkInsta'>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="name">Link Twitter</label>
+                        <input type="text" class="form-control" pattern="(http|https)://.+" title='Nhập đúng định dạng URL' value='{{content.linkTW}}' id="linkTW" name='linkTW'>
+                    </div>
+                    <div class="mb-3">Hình ảnh Banner (830x300) x 3<p class="font-weight-light" style='color:red'>(Bạn phải xóa ảnh cũ trước khi thêm ảnh mới.)</p></label>
+                        <input type="file" class="form-control-file" id='images' name='poster123' multiple>
+                        <div><a class='dlt-img' href='?_delete&name=.{{content.poster1}}'><span class="material-icons">close</span></a><img src='{{content.poster1}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+                        <div><a class='dlt-img' href='?_delete&name=.{{content.poster2}}'><span class="material-icons">close</span></a><img src='{{content.poster2}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+                        <div><a class='dlt-img' href='?_delete&name=.{{content.poster3}}'><span class="material-icons">close</span></a><img src='{{content.poster3}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+                    </div>
+                    <div class="mb-3">Hình Event (1200x90)<p class="font-weight-light" style='color:red'>(Bạn phải xóa ảnh cũ trước khi thêm ảnh mới.)</p></label>
+                        <input type="file" class="form-control-file"  name='poster4' id='image'>
+                        <div><a class='dlt-img' href='?_delete&name=.{{content.poster4}}'><span class="material-icons">close</span></a><img src='{{content.poster4}}' style='max-width:10%' class="img-thumbnail isComplete"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="inputEmail4">Số điện thoại</label>
+                        <input type="text" class="form-control"  value='{{content.hotLine}}' id="hotLine" name='hotLine' required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputEmail4">Email</label>
+                        <input type="text" class="form-control"  value='{{content.email}}' id="email" name='email' required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Địa chỉ</label>
+                        <input type="text" class="form-control"  value='{{content.store}}' id="store" name='store' required>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="mb-3" style='margin-top:10px'>
+                    <textarea class="form-control toHTML" id="mytextarea" name='aboutusContent'>{{content.aboutusContent}}</textarea>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="mb-3" style='margin-top:10px'>
+                    <textarea class="form-control toHTML" id="mytextarea" name='helpsContent'>{{content.helpsContent}}</textarea>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-policies" role="tabpanel" aria-labelledby="nav-policies-tab">
+                <div class="mb-3" style='margin-top:10px'>
+                    <textarea class="form-control toHTML" id="mytextarea" name='policiesContent'>{{content.policiesContent}}</textarea>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block "><span class="material-icons">save</span>Lưu lại</button>
+    </form>
+
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', function(){
+        var isCompleteImg = document.getElementsByClassName('isComplete')[0].complete && document.getElementsByClassName('isComplete')[0].naturalWidth !== 0
+        var isCompleteImg2 = document.getElementsByClassName('isComplete')[1].complete && document.getElementsByClassName('isComplete')[1].naturalWidth !== 0
+        var isCompleteImg3 = document.getElementsByClassName('isComplete')[2].complete && document.getElementsByClassName('isComplete')[2].naturalWidth !== 0
+        $("#images").on("change", function() {
+            if ($("#images")[0].files.length > 3) {
+                alert("Bạn chỉ có thể chọn tối đa 3 hình ảnh!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else if ($("#images")[0].files.length > 0 &&  (isCompleteImg || isCompleteImg2 || isCompleteImg3) ) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+        var isCompleteImg4 = document.getElementsByClassName('isComplete')[3].complete && document.getElementsByClassName('isComplete')[3].naturalWidth !== 0
+        $("#image").on("change", function() {
+            if ($("#image")[0].files.length > 0 &&  isCompleteImg4) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+        
+    })
+
+</script>

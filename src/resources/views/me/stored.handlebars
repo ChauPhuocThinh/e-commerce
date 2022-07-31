@@ -1,0 +1,140 @@
+<form name='container-form' method='POST' action="/items/deleteMany">
+  <h3 ><span class="material-icons-two-tone md-36">manage_search</span>Quản lý sản phẩm</h3>
+  <div style='display:inline-block;margin-right:870px'><a href='/me/trash/items'><span class="material-icons">delete_outline</span>Thùng rác </a></div>
+  <button type="button" class="btn btn-success btn-sm" onclick="window.location.href='/items/create'" >Thêm sản phẩm</button>
+    <div class="form-check" style='display:inline-block;margin-right:40px'>
+      <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+      <label class="form-check-label" for="checkbox-all">
+        Chọn tất cả
+      </label>
+    </div>
+  <button type="submit" class="btn btn-danger btn-sm checkallSubmitBtn">Xóa nhiều sản phẩm</button>
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+      <table class="table table-bordered table-striped mb-0 shadow-sm p-3 rounded">
+          <thead>
+              <tr>
+                  <th scope="col" colspan='2'>#</th>
+                  <th scope="col">
+                    Tên sản phẩm
+                    {{{sortable 'name' _sort}}}</th>
+                  <th scope="col">
+                    Giá
+                    {{{sortable 'price' _sort}}}</th>
+                  <th scope="col" colspan='2'>
+                    Thời gian tạo
+                    {{{sortable 'createdAt' _sort}}}</th>
+              </tr>
+          </thead>
+          <tbody>
+              {{#each items}}
+              <tr>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="{{this._id}}" name='itemIds[]'>
+                    </div>
+                  </td>
+                  <th scope="row">{{sum @index 1}}</th>
+                  <td>{{this.name}}</td>
+                  <td class='price-mn'></td>
+                  <td class='hidden price-nb'>{{this.price}}</td>
+                  <td>{{this.createdAt}}</td>
+                  <td>
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa" onclick="window.location.href='/items/{{this._id}}/edit'"><span class="material-icons-two-tone rotate">settings</span></button>
+                      <a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-item" style='cursor:pointer' data-toggle="tooltip" data-placement="bottom" title="xóa"><span class="material-icons">backspace</span></a>
+                      
+                  </td>
+
+              </tr>
+              {{else}}
+              <tr>
+                <td colspan="6" class='text-center'>Bạn chưa có sản phẩm nào. <a href='/items/create'>Thêm sản phẩm</a></td>
+              </tr>
+              {{/each}}
+              
+          </tbody>
+      </table>
+  </div>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="delete-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa sản phẩm này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+        <button type="button" id='btn-delete' class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name='delete-form-item' method='POST'></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+
+        var itemId;
+        var deleteForm = document.forms['delete-form-item'];
+        var btnDelete = document.getElementById('btn-delete');
+        var checkboxAll = $('#checkbox-all');
+        var itemCheckbox = $('input[name="itemIds[]"]');
+        var checkallSubmitBtn = $('.checkallSubmitBtn');
+        var containerForm = document.forms['container-form']
+        $('#delete-item').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        itemId = button.data('id')
+        console.log(itemId)
+       
+        })
+        btnDelete.onclick = function () {
+            deleteForm.action = "/items/" + itemId + "?_method=DELETE";
+            deleteForm.submit()
+        }
+        checkboxAll.change(function(){
+          var isCheckedAll = $(this).prop('checked');
+          itemCheckbox.prop('checked', isCheckedAll);
+          renderCheckedAllSubmitBtn()
+        })
+        itemCheckbox.change(function(){
+          var isCheckedAll = itemCheckbox.length === $('input[name="itemIds[]"]:checked').length;
+          checkboxAll.prop('checked', isCheckedAll);
+          renderCheckedAllSubmitBtn()
+        })
+        
+
+        function renderCheckedAllSubmitBtn(){
+          var checkedCount = $('input[name="itemIds[]"]:checked').length
+          if (checkedCount > 0){
+            checkallSubmitBtn.attr('disabled', false)
+
+          }else{
+            checkallSubmitBtn.attr('disabled', true)
+          }
+        }
+        renderCheckedAllSubmitBtn()
+    })
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    //Định dạng tiền tệ
+    var hidden = document.getElementsByClassName('price-nb')
+    for (var i=0; i< hidden.length; i++){
+      var number = parseFloat(hidden[i].innerHTML)
+      var price_Del = Number(number.toFixed(2)).toLocaleString()
+      document.getElementsByClassName('price-mn')[i].innerText = price_Del + " đ"
+    }
+
+    
+</script>

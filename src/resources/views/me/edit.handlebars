@@ -1,0 +1,91 @@
+<h3 style='margin-top:-5px'>Chỉnh sửa hồ sơ</h3>
+<form method="POST" action='/me?_method=PUT' enctype="multipart/form-data">
+    <div class='mt-4 shadow-sm p-3 rounded' style='background-color: {{content.colorForm}}'>
+    <dl class="row">
+        <dd class="col-sm-3">Họ và tên</dd>
+        <dd class="col-sm-9"><input type='text' class="form-control" value='{{user.fullName}}' disabled></dd>
+        
+        <dd class="col-sm-3">Ảnh đại diện</dd>
+        <dd class="col-sm-3"><input type='file' class="form-control-file" name='avatar' id='image'></dd>
+        <dd class="col-sm-6"><img src='{{user.avatar}}' style='max-width:10%; border-radius: 50%' class="isComplete">  <a href='?_delete&name=.{{user.avatar}}'>Xóa</a></dd>
+
+        <dd class="col-sm-3">Email</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='email' name='email' class="form-control" value='{{user.email}}' disabled></dd>
+
+        <dd class="col-sm-3">Số điện thoại</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='tel' name='phoneNumber' value='{{user.phoneNumber}}' pattern='\+?(0|84)\d{9}' title='Nhập đúng định dạng số thuê bao Việt Nam'></dd>
+
+        <dd class="col-sm-3">Số căn cước</dd>
+        <dd class="col-sm-9"><input class="form-control"  name='ID' value='{{user.ID}}' disabled></dd>
+
+        <dd class="col-sm-3">Địa chỉ</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='text' name='address' value='{{user.address}}'></dd>
+
+        <dd class="col-sm-3">Ngày sinh</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='date' value='{{user.dateofBirth}}' disabled></dd>
+
+        <dd class="col-sm-3">Thời gian tạo tài khoản</dd>
+        <dd class="col-sm-9">{{user.createdAt}}</dd>
+
+        <dd class="col-sm-3">Thời gian cập nhật</dd>
+        <dd class="col-sm-9">{{user.updateAt}}</dd>
+
+        <dd class="col-sm-3">Loại tài khoản</dd>
+        <dd class="col-sm-9">
+            <select class="form-control" value='{{user.role}}' name='role' disabled>
+                <option selected>{{user.role}}</option>
+                <option value="Mod">Mod</option>
+                <option value="Salesman">Salesman</option>
+            </select>
+        </dd>
+        <dd class="col-sm-3">Đổi mật khẩu</dd>
+        <dd class="col-sm-3"><input class="form-control"  type='password' name='oldPass' id='oldPass' style='width: 200px'placeholder="Mật khẩu cũ"></dd>
+        <dd class="col-sm-3"><input class="form-control"  type='password' id='newPass' name='newPass'style='width: 200px'placeholder="Mật khẩu mới" pattern="[a-zA-Z0-9!@#$%^&*]{6,}" title="Mật khẩu từ 6 ký tự, không phân biệt chữ thường, chữ hoa, số, hoặc một số ký tự đặc biệt &#013; như '!', '@', '#', '$', '%', '^', '&' '*'."></dd>
+        <dd class="col-sm-3"><input class="form-control"  type='password' id='testPass' style='width: 200px' placeholder="Xác nhận mật khẩu mới"></dd>
+    </dl>
+    <button type="submit" class="btn btn-primary btn-lg btn-block"><span class="material-icons">save</span>Lưu lại</button>
+</div>
+    
+</form>
+<style>
+    p {
+        display: inline-block;
+        vertical-align: top;
+    }
+    h3 {
+        display: inline-block; 
+        margin:5px;
+    }
+    .col-sm-3 {
+        font-weight: 400;
+        color: rgb(96, 94, 92);
+        text-overflow:ellipsis;
+        -webkit-font-smoothing: antialiased;
+    }
+</style>
+<script>
+    var testPass = document.getElementById('testPass')
+    var newPass = document.getElementById('newPass')
+    function check() {
+        if (testPass.value != newPass.value) {
+            testPass.setCustomValidity('Mật khẩu mới không giống nhau');
+        } else {
+            // input is valid -- reset the error message
+            testPass.setCustomValidity('');}
+    }
+    newPass.onchange = check;
+    testPass.onkeyup = check;
+    window.addEventListener('DOMContentLoaded', function(){
+        var isCompleteImg = document.getElementsByClassName('isComplete')[0].complete && document.getElementsByClassName('isComplete')[0].naturalWidth !== 0
+        $("#image").on("change", function() {
+            if ($("#image")[0].files.length > 0 &&  isCompleteImg ) {
+                alert("Hãy xóa ảnh cũ trước đã!!!");
+                document.querySelector('button[type="submit"]').setAttribute('disabled', true)
+            }else{
+                document.querySelector('button[type="submit"]').removeAttribute('disabled')
+            }
+            
+        });
+    })
+
+</script>

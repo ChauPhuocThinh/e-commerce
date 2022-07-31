@@ -1,0 +1,75 @@
+<h3 style='margin-top:-5px'>Chỉnh sửa hồ sơ</h3>
+<form method="POST" action='/users/user/{{account._id}}?_method=PUT'>
+    <div class='mt-4 shadow-sm p-3 rounded' style='background-color: {{content.colorForm}}'>
+        <img src='{{account.avatar}}' style='max-width:10%' class="rounded float-left">
+        <dl class="row">
+        <dd class="col-sm-3">Họ và tên</dd>
+        <dd class="col-sm-9"><input type='text' class="form-control" name='fullName' value='{{account.fullName}}'></dd>
+
+        <dd class="col-sm-3">Email</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='email' name='email' class="form-control" value='{{account.email}}'></dd>
+
+        <dd class="col-sm-3">Số điện thoại</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='tel' name='phoneNumber' value='{{account.phoneNumber}}' pattern='\+?(0|84)\d{9}' title='Nhập đúng định dạng số thuê bao Việt Nam' ></dd>
+
+        <dd class="col-sm-3">Số căn cước</dd>
+        <dd class="col-sm-9"><input class="form-control"  name='ID' value='{{account.ID}}'></dd>
+
+        <dd class="col-sm-3">Địa chỉ</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='text' name='address' value='{{account.address}}'></dd>
+
+        <dd class="col-sm-3">Ngày sinh</dd>
+        <dd class="col-sm-9"><input class="form-control"  type='date' value='{{account.dateofBirth}}' name='dateofBirth'></dd>
+
+        <dd class="col-sm-3">Thời gian tạo tài khoản</dd>
+        <dd class="col-sm-9">{{account.createdAt}}</dd>
+
+        <dd class="col-sm-3">Thời gian tạo cập nhật</dd>
+        <dd class="col-sm-9">{{account.updateAt}}</dd>
+
+        <dd class="col-sm-3">Loại tài khoản</dd>
+        <dd class="col-sm-9">
+            <select class="form-control" value='{{account.role}}' name='role'>
+                <option selected>{{account.role}}</option>
+                <option value="Mod">Mod</option>
+                <option value="Salesman">Salesman</option>
+                <option value="Block">Khóa</option>
+            </select>
+        </dd>
+        <dd class="col-sm-3">Đổi mật khẩu</dd>
+        <dd class="col-sm-3"><input class="form-control"  type='password' id='newPass' name='newPass'style='width: 200px'placeholder="Mật khẩu mới" pattern="[a-zA-Z0-9!@#$%^&*]{6,}" title="Mật khẩu từ 6 ký tự, không phân biệt chữ thường, chữ hoa, số, hoặc một số ký tự đặc biệt &#013; như '!', '@', '#', '$', '%', '^', '&' '*'."></dd>
+        <dd class="col-sm-3"><input class="form-control"  type='password' id='testPass' style='width: 200px' placeholder="Xác nhận mật khẩu mới"></dd>
+    </dl>
+    <button type="submit" class="btn btn-primary btn-lg btn-block "><span class="material-icons">save</span>Lưu lại</button>
+</div>
+    
+</form>
+<script>
+    var testPass = document.getElementById('testPass')
+    var newPass = document.getElementById('newPass')
+    function check() {
+        if (testPass.value != newPass.value) {
+            testPass.setCustomValidity('Mật khẩu mới không giống nhau');
+        } else {
+            // input is valid -- reset the error message
+            testPass.setCustomValidity('');}
+    }
+    newPass.onchange = check;
+    testPass.onkeyup = check;
+
+</script>
+<style>
+    p {
+        display: inline-block;
+        vertical-align: top;
+    }
+    h3 {
+        display: inline-block; 
+        margin:5px;
+    }
+    input, select {
+         border: 1px solid #ccc;
+         border-radius: 8px;
+         width: 500px;
+    }
+</style>

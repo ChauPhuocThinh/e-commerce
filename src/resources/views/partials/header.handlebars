@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style='background-color: {{content.colorNavbar}}'>
+  <div class="container">
+      <a class="navbar-brand" href="/">{{content.shopName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="text" value='{{key}}' id='search-value' placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" id='search-items' type="button">Tìm kiếm</button>
+    </form>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item">
+          <a class="nav-link content" href="/content/view"><span class="material-icons-two-tone">design_services</span>Giao diện</a>
+        </li>
+        <li class="nav-item items">
+          <a class="nav-link" href="/me/stored/items"><span class="material-icons-two-tone">store</span>Sản phẩm</a>
+        </li>
+        <li class="nav-item orders">
+          <a class="nav-link" href="/me/orders"><span class="material-icons-two-tone">receipt</span>Đơn hàng</a>
+        </li>
+        <li class="nav-item accounts">
+          <a class="nav-link" href="/me/accounts"><span class="material-icons-two-tone">people_alt</span>Tài khoản</a>
+        </li>
+        <p class='hidden role'>{{user.role}}</p>
+        <li class="nav-item signin">
+          <a class="nav-link" href="/users/signin"><span class="material-icons-two-tone">account_circle</span>Đăng nhập</a>
+        </li>
+        <li class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle" href="/users/signin" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.fullName}}</a>
+            <div class="dropdown-menu shadow-sm rounded" aria-labelledby="navbarDropdown" style='position:absolute; z-index:2'>
+              <a class="dropdown-item" href="/me"><span class="material-icons-two-tone">account_circle</span>Thông tin cá nhân</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/users/signout"><span class="material-icons-two-tone">logout</span>Đăng xuất</a>
+            </div>
+        </li>
+      </ul>
+    
+    </div>
+  </div>
+</nav>
+
+<script>
+  var signin = document.getElementsByClassName('signin')[0]
+    if ($('#navbarDropdown').text() == ''){
+      const nav_item = document.getElementsByClassName('nav-item')
+      for( var i=0; i < nav_item.length ; i++){
+        document.getElementsByClassName('nav-item')[i].classList.add('hidden')
+      }
+        signin.classList.remove('hidden')
+      }
+    else{
+      signin.classList.add('hidden')
+    }
+    var role = document.getElementsByClassName('role')[0].innerHTML
+    var items = document.getElementsByClassName('items')[0]
+    var content = document.getElementsByClassName('content')[0]
+    var accounts = document.getElementsByClassName('accounts')[0]
+    if(role == 'Salesman'){
+      items.classList.add('hidden')
+      content.classList.add('hidden')
+      accounts.classList.add('hidden')
+    }if(role == 'Mod'){
+      accounts.classList.add('hidden')
+    }
+    searchValue = document.getElementById('search-value')
+    btnSearchItems = document.getElementById('search-items');
+    btnSearchItems.onclick = function(){
+      window.location.href = '/searchItems?key=' + searchValue.value
+    }
+    $('#search-value').keypress(function(event){
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (keycode == '13') {
+        event.preventDefault()
+        window.location.href = '/searchItems?key=' + searchValue.value
+      }
+    });
+    
+</script>

@@ -1,0 +1,59 @@
+<div class="mt-4 shadow-sm p-3 rounded" style='background-color: {{content.colorForm}}'>
+    <h3 style='margin-left: 5px'><span class="material-icons-two-tone md-36">receipt_long</span>Chi tiết đơn hàng</h3>
+    <form  method="POST" action='/orders/{{order._id}}?_method=PUT '>
+        <ul class="list-group">
+            <li class="list-group-item active">Đơn hàng #{{order._id}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">person</span>Người đặt hàng: {{order.name}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">inventory_2</span>Sản phẩm: {{order.nameItems}}</li>
+            <li class="list-group-item total-mn"></li>
+            <li class="hidden total-nb">{{order.total}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">home</span>Địa chỉ: {{order.address}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">phone</span>Số điện thoại: {{order.phoneNumber}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">history</span>Thời gian đặt hàng: {{order.createdAt}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">payments</span>Phương thức thanh toán: {{order.paymentMethods}}</li>
+            <li class="list-group-item"><span class="material-icons-two-tone">edit_note</span>Ghi chú khách hàng: {{order.note}}</li>
+            <li class="list-group-item">
+                {{!-- <input checked="checked" type="radio" value='Đã xác nhận' id="status" name='status' style='margin-left: 50px' > &ensp;<span class="material-icons-two-tone">check</span>Xác nhận -------->
+                <input type="radio" value='Đang giao hàng' id="status" name='status' style='padding-left: 100px'> &ensp;<span class="material-icons-two-tone">local_shipping</span>Đang giao hàng -------->
+                <input type="radio" value='Hoàn thành' id="status" name='status' style='padding-left: 100px'> &ensp;<span class="material-icons-two-tone"><span class="material-icons-two-tone">assignment_turned_in</span></span>Hoàn thành --}}
+                 <div class="form-row">
+                     <div class="form-group col-md-6">
+                         <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Trạng thái đơn hàng:</label>
+                            </div>
+                            <div class="input-group-append">
+                                <label class="input-group-text status-show" >{{order.status}}</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01" name='status'>
+                                <option value='{{order.status}}'>Thay đổi...</option>
+                                <option value="b">Xác nhận</option>
+                                <option value="c">Đang giao hàng</option>
+                                <option value="d">Hoàn thành</option>
+                            </select>
+                        </div>
+                     </div>
+                 </div>
+            </li>
+        </ul>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Xác nhận</button>
+    </form>
+</div>
+<script>
+    var hidden = document.getElementsByClassName('total-nb')
+      var number = parseFloat(hidden[0].innerHTML)
+      var totalDel = "<span class='material-icons-two-tone'>attach_money</span>Tổng đơn hàng: " + Number(number.toFixed(2)).toLocaleString() + " vnđ"
+      document.getElementsByClassName('total-mn')[0].innerHTML = totalDel
+    document.addEventListener('DOMContentLoaded', function(){
+        var status = document.getElementsByClassName('status-show')[0]
+        if (status.innerHTML == 'a'){
+            status.innerHTML = 'Đang chờ xác nhận'
+        }else if (status.innerHTML == 'b'){
+            status.innerHTML = 'Đã xác nhận'
+        }else if (status.innerHTML == 'c'){
+            status.innerHTML = 'Đang giao hàng'
+        }else if (status.innerHTML == 'd'){
+            status.innerHTML = 'Đã hoàn thành'
+        }
+    })
+</script>

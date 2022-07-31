@@ -1,0 +1,84 @@
+<h3 ><span class="material-icons-two-tone md-36">account_box</span>Quản lý tài khoản</h3><div style='margin-left: 991px'><button type="button" class="btn btn-success btn-sm" onclick="window.location.href='/users/signup'" style='position: right'>Tạo tài khoản</button></div>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    
+    <table class="table table-bordered table-striped mb-0 shadow-sm p-3 rounded">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên tài khoản</th>
+                <th scope="col">Email</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col" colspan='2'>
+                  Phân quyền
+                  {{{sortable 'role' _sort}}}</th>
+                <th scope="col" >Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td scope="row"><img class='user-avatar' src='{{this.avatar}}'> {{this.fullName}}</td>
+                <td scope="row" >{{this.email}}</td>
+                <td scope="row" >{{this.phoneNumber}}</td>
+                <td scope="row">{{this.role}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/users/user/{{this._id}}'"><span class="material-icons-two-tone">manage_accounts</span>Chỉnh sửa</button>   
+                </td>
+                <td><a data-toggle="modal" data-id='{{this._id}}' data-target="#delete-item" style='cursor:pointer'><span class="material-icons-two-tone">backspace</span></a></td>
+            </tr>
+            {{/each}}
+            
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="delete-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa tài khoản</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa tài khoản này?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+        <button type="button" id='btn-delete' class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name='delete-form-item' method='POST'></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+
+        var itemId;
+        var deleteForm = document.forms['delete-form-item'];
+        var btnDelete = document.getElementById('btn-delete')
+        $('#delete-item').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        itemId = button.data('id')
+        console.log(itemId)
+       
+        })
+        btnDelete.onclick = function () {
+            deleteForm.action = "/me/accounts/" + itemId + "?_method=DELETE";
+            deleteForm.submit()
+        }
+        var role = document.getElementsByClassName('role-account')
+        var account = document.getElementsByClassName('account')
+        for(var i=0;role.length<0;i++){
+          console.log('ok')
+        }
+    })
+    
+    
+</script>

@@ -1,0 +1,60 @@
+<h3 style='margin-top:-5px'>Hồ sơ của tôi</h3><a href='/me/edit'>Chỉnh sửa</a>
+<div class='mt-4 shadow-sm p-3 rounded' style='background-color: {{content.colorForm}}'>
+    <img src='{{user.avatar}}' style='max-width:10%' class="rounded float-left">
+    <dl class="row">
+        <dd class="col-sm-3">Họ và tên</dd>
+        <dd class="col-sm-9">{{user.fullName}}</dd>
+    
+        <dd class="col-sm-3">Email</dd>
+        <dd class="col-sm-9">{{user.email}}</dd>
+
+        <dd class="col-sm-3">Số điện thoại</dd>
+        <dd class="col-sm-9">{{user.phoneNumber}}</dd>
+
+        <dd class="col-sm-3">Số căn cước</dd>
+        <dd class="col-sm-9">{{user.ID}}</dd>
+
+        <dd class="col-sm-3">Địa chỉ</dd>
+        <dd class="col-sm-9">{{user.address}}</dd>
+
+        <dd class="col-sm-3">Ngày sinh</dd>
+        <dd class="col-sm-9">{{user.dateofBirth}}</dd>
+
+        <dd class="col-sm-3">Thời gian tạo tài khoản</dd>
+        <dd class="col-sm-9">{{user.createdAt}}</dd>
+
+        <dd class="col-sm-3">Thời gian cập nhật</dd>
+        <dd class="col-sm-9">{{user.updateAt}}</dd>
+
+        <dd class="col-sm-3">Loại tài khoản</dd>
+        <dd class="col-sm-9">{{user.role}}</dd>
+    </dl>
+
+<style>
+    p {
+        display: inline-block;
+        vertical-align: top;
+    }
+    h3 {
+        display: inline-block; 
+        margin:5px;
+    }
+    .btn-light{
+    }
+    .material-icons{
+        font-size: 14px;
+        line-height: 30px;
+    }
+    .col-sm-9 {
+        font-weight: 600;
+        color: rgb(50, 49, 48);
+        text-overflow:ellipsis;
+        -webkit-font-smoothing: antialiased;
+    }
+    .col-sm-3 {
+        font-weight: 400;
+        color: rgb(96, 94, 92);
+        text-overflow:ellipsis;
+        -webkit-font-smoothing: antialiased;
+    }
+</style>

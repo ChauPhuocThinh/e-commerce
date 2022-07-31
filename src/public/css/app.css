@@ -1,0 +1,146 @@
+* {
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif; }
+
+.card-item-item {
+  margin-top: 16px; }
+
+h5 {
+  color: #cf2f2f; }
+
+h6 {
+  color: #777777; }
+
+a {
+  color: #777777;
+  text-decoration: none; }
+
+h3 {
+  margin-top: 20px; }
+
+.users-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50px;
+  margin-right: 4px; }
+
+.img-items {
+  width: 210px;
+  height: 200px; }
+
+.card-img-top {
+  padding: 20px;
+  transform: scale(1);
+  transition: all 0.5s; }
+
+.card-img-top:hover {
+  transform: scale(1.1); }
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 400px;
+  overflow: auto;
+  margin-top: 30px; }
+
+.table-wrapper-scroll-y {
+  display: block; }
+
+.divfix {
+  right: 0;
+  position: fixed;
+  z-index: 1;
+  padding-right: 30px; }
+
+.divfix2 {
+  right: 0;
+  position: fixed;
+  z-index: 1;
+  padding-right: 30px;
+  padding-top: 60px; }
+
+.material-icons,
+svg {
+  vertical-align: middle;
+  margin-right: 2px; }
+
+.material-icons-two-tone {
+  vertical-align: middle;
+  margin-right: 2px; }
+
+.mt-4 {
+  padding: 8px;
+  border-radius: 5px; }
+
+.form-center {
+  width: 30%;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px; }
+
+.form-radius {
+  background-color: #d6eef1;
+  padding: 10px;
+  border-radius: 5px; }
+
+.card {
+  margin-bottom: 10px;
+  border-radius: 5px; }
+
+.hidden {
+  display: none; }
+
+.material-icons-two-tone.md-18 {
+  font-size: 18px; }
+
+.material-icons-two-tone.md-24 {
+  font-size: 24px; }
+
+.material-icons-two-tone.md-36 {
+  font-size: 36px; }
+
+.material-icons-two-tone.md-48 {
+  font-size: 48px; }
+
+@-webkit-keyframes xoayvong {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg); } }
+
+/* Standard syntax */
+@keyframes xoayvong {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg); } }
+
+.rotate:hover {
+  animation: xoayvong 0.5s linear 0s infinite;
+  -webkit-animation: xoayvong 0.5s linear 0s infinite;
+  -moz-animation: xoayvong 0.5s linear 0s infinite;
+  -o-animation: xoayvong 0.5s linear 0s infinite; }
+
+.btn {
+  border-radius: 32px !important; }
+
+.dropdown-item {
+  cursor: pointer; }
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 5px; }
+
+label {
+  font-weight: 400;
+  color: #605e5c;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased; }

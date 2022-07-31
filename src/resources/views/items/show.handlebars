@@ -1,0 +1,164 @@
+<div class="mt-4 shadow-sm p-3 rounded"style='background-color: {{content.colorForm}}'>
+    <div class="row">
+        <div class="col-lg-3">
+            <img class="img-items"  class="card-img-top" src={{item.image}}>
+            <p style='margin-top: 16px;font-size:14px;'><span class="material-icons-two-tone">verified_user
+                </span> Bảo hành chính hãng 1 năm</p>
+            <p style=' font-size:14px'><span class="material-icons-two-tone">bento</span> Bộ sản phẩm gồm: Hộp, Sạc, Sách hướng dẫn</p>
+            <p style=' font-size:14px'><span class="material-icons-two-tone">local_shipping</span> Giao hàng tận nhà nhanh chóng</p>
+            <p><del class='price-del'>{{item.priceDel}}</del><h7></h7></p>
+            <h5 class='hidden'><span class="material-icons-two-tone" style='float: left;'>local_fire_department</span><div class='price'>{{item.price}}</div></h5>
+            <h5><span class="material-icons-two-tone" style='float: left;'>local_fire_department</span><div class='price-mn'></div></h5>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Mua ngay</button><br>
+        </div>
+        <div class="col-lg-9">
+            <h2>{{item.name}}</h2>
+            <iframe width="700px" height="390px" style="margin-top:30px" src="https://www.youtube.com/embed/{{item.posterImg}}" title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p style="text-algin:left; margin-top: 30px;  white-space: pre-line" >{{{item.detail}}}</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Mua ngay</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    
+      <div class="modal-body">
+    <form method="POST" action='/orderitems'>
+        <table class="table">
+        <thead class="cart-row">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" class="cart-item cart-header cart-column">Tên sản phẩm</th>
+                <th scope="col" class="cart-price cart-header cart-column">Giá</th>
+                <th scope="col" class='cart-quantity cart-header cart-column'>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody class="cart-items">
+            
+            <tr>
+                <div class='cart-item cart-column cart-row '>
+                    <th scope="row" ><img style='max-height: 50px'src='{{item.image}}'></th>
+                    <td class="cart-item-title items">{{item.name}}</td>
+                                
+                </div>
+                <td class='cart-price cart-column price-items'>{{item.price}}</td>
+                <td><div class="cart-quantity cart-column">
+                        <input class="cart-quantity-input quantity-items" type="number" value="1" style='width: 40px; margin-right: 10px'>
+                        
+                    </div></td>
+            </tr>
+            
+                        
+        </tbody>
+          <div class="input-group input-group-sm mb-3" style='margin-top:20px'>
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Họ tên của bạn</span>
+              </div>
+              <input type="text" name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Địa chỉ</span>
+              </div>
+              <input type="text" name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-sm">Số điện thoại</span>
+              </div>
+              <input type="text"  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+          </div>
+          <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" style='font-size:14px'>Ghi chú</span>
+              </div>
+              <textarea type='text' class="form-control" aria-label="With textarea" id="note" name='note'></textarea>
+          </div>
+          <dd style='font-weight: 400; color: rgb(96, 94, 92);'>Phương thức giao hàng:</dd>
+          <div class="custom-control custom-radio">
+            <input name='paymentMethods' value='Thanh toán khi nhận hàng' checked='checked' type="radio" class='custom-control-input' required>
+            <label class="custom-control-label" for="customRadio1" style='font-weight: 600; color: rgb(50, 49, 48);'>Thanh toán khi nhận hàng</label>
+          </div>
+        </table>
+        <div class="cart-total">
+            <strong class="cart-total-title">Tổng Cộng:</strong>
+            <span class="cart-total-price" id='total'>0</span>
+        </div>
+        <input type="hidden" value='' id='nameItems' name='nameItems'>
+        <input type="hidden" id= 'total-items' value='' id="total" name='total'>
+        <input type='hidden' name='_id' id='orderId' value=''>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Đặt hàng</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<div class="fb-comments" data-href="https://smartphone-store-do-an3.herokuapp.com/items/{{item.slug}}" data-width="1100" data-numposts="5"></div>
+
+
+<script>
+
+    //open cart
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+
+    //Cart
+    function updatecart(){
+      var priceItem = document.getElementsByClassName('price-items')[0];
+      var quantityItem = document.getElementsByClassName('cart-quantity-input')[0]
+      var price = parseFloat(priceItem.innerText)
+      var quantity = quantityItem.value
+      var total = 0
+      total = total + (price*quantity)
+      
+      document.getElementsByClassName('cart-total-price')[0].innerText = Number(parseFloat(total).toFixed(2)).toLocaleString() + ' vnđ'
+      //[POST] total
+      var totalInput = document.getElementById('total-items');
+      totalInput.setAttribute('value', total)
+      //[POST] nameItems
+      var titleItem = document.getElementsByClassName('cart-item-title')[0]
+      var inputNameitems = document.getElementById('nameItems')
+      var valueNameitems = titleItem.innerText + ' SL: ' + (total / price)
+
+      inputNameitems.setAttribute('value', valueNameitems)
+    }
+    updatecart()
+    var quantityInput = document.getElementsByClassName('cart-quantity-input')
+    for (i=0; i < quantityInput.length; i++){
+      var input=quantityInput[i]
+      input.addEventListener('change', function(event){
+        var input = event.target
+        if (isNaN(input.value) || input.value <= 0){
+          input.value = 1
+        }
+        updatecart()
+      })
+    }
+
+    var numberPrice = parseFloat(document.getElementsByClassName('price')[0].innerHTML)
+    var numberPriceDel = parseFloat(document.getElementsByClassName('price-del')[0].innerText)
+    var priceDel = Number(numberPriceDel.toFixed(2)).toLocaleString()
+    var price = Number(numberPrice.toFixed(2)).toLocaleString()
+    var numberDiscount = Math.floor(100 - ((numberPrice/numberPriceDel) * 100))
+    document.getElementsByClassName('price-del')[0].innerText = priceDel + ' vnđ'
+    document.getElementsByClassName('price-mn')[0].innerHTML = price + ' vnđ'
+    document.getElementsByTagName('h7')[0].innerText = ' -' + numberDiscount + '%'
+    
+    var orderId = document.getElementById('orderId')
+    orderId.setAttribute('value', Math.floor(Math.random() * 999999999999999999))
+</script>

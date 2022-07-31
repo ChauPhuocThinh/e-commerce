@@ -1,0 +1,908 @@
+<!--Btn Cart-->
+<div class="divfix">
+    <button id="cart" class="btn btn-info" type="button" data-toggle="tooltip" data-placement="left" title="Giỏ hàng" style='border-radius: 50px; width:50px; height:50px'>
+      <span class="material-icons-two-tone">shopping_cart</span><span class="badge badge-success" style=' font-size: 14px;'></span>
+    </button>
+</div>
+<div class="divfix2">
+    <button class="btn btn-info" type="button" style='border-radius: 50px; width:50px; height:50px' data-toggle="tooltip" data-placement="left" title="Tra cứu đơn hàng"
+    onclick='window.location.href="/searchOrder"'>
+      <span class="material-icons">manage_search</span>
+    </button>
+</div>
+<!--Poster-->
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{{content.poster1}}" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{content.poster2}}" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{content.poster3}}" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!--Items-->
+<form class='search-form mt-4' id='scroll'>
+  <div class='form-row ' style='background-color: {{content.colorBackground}}'>
+    <div class="form-group col-md-2">
+      <label style='color:floralwhite'>Hãng:</label>
+      <select class="custom-select" id="brand" name="brand" class='filter'>
+        <option value='{{_filter.brand}}' class='all' selected>{{_filter.brand}}</option>
+        
+        <option value="Apple">Apple</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Xiaomi">Xiaomi</option>
+        <option value="OnePlus">OnePlus</option>
+        <option value="Huawei">Huawei</option>
+        <option value="Vsmart">Vsmart</option>
+        <option value="Nokia">Nokia</option>
+        <option value="Oppo">Oppo</option>
+        <option value="Vivo">Vivo</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label style='color:floralwhite'>Khoảng giá: </label>
+      <select class="custom-select" id="priceRange" name='priceRange' class='filter'>
+        <option value='{{_filter.priceRange}}' class='all' selected>{{_filter.priceRange}}</option>
+        
+        <option value="dưới 5 triệu">dưới 5 triệu</option>
+        <option value="5-10 triệu">5-10 triệu</option>
+        <option value="10-15 triệu">10-15 triệu</option>
+        <option value="15-20 triệu">15-20 triệu</option>
+        <option value="trên 20 triệu">trên 20 triệu</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label style='color:floralwhite'>Phân khúc:</label>
+      <select class="custom-select" id="type" name='type' class='filter' aria-placeholder="as">
+        <option value='{{_filter.type}}' class='all'selected>{{_filter.type}}</option>
+        
+        <option value="Điện thoại phổ thông">Điện thoại phổ thông</option>
+        <option value="Điện thoại cao cấp">Điện thoại cao cấp</option>
+        <option value="Gaming Phone">Gaming Phone</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <button type="button" class="btn btn-success search" style='color:floralwhite' disabled>Lọc danh sách</button>
+    </div>
+    <a href='/' style='margin-top:35px;text-decoration:none ;color:floralwhite'><span class="material-icons-two-tone rotate">autorenew</span>Làm mới</a>
+    <div class="form-group col-md-2" style='margin-top: 32px; margin-left: 96px'>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sắp xếp sản phẩm
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" id='new'>Mới nhất<i></i></a>
+          <a class="dropdown-item" id='price-desc'>Giá từ cao đến thấp<i></i></a>
+          <a class="dropdown-item" id='price-asc'>Giá từ thấp đến cao<i></i></a>
+        </div>
+      </div>
+    </div>
+  
+</form>
+
+<img src='{{content.poster4}}' style='width: 1104px; margin-bottom: -25px'>
+<div class="mt-4" style='background-color: {{content.colorBackground}}'>
+  
+    <div class="row" >
+        {{#each items}}
+        <div class="col-sm-6 col-lg-3" >
+            <div class="card" style="width: 15rem; cursor:pointer" >
+                <img class="card-img-top" class="img-items" src="{{this.image}}" alt="{{this.name}}" onclick="window.location.href='/items/{{this.slug}}'">
+                <div class="card-body">
+                    <a style="text-decoration: none" href='/items/{{this.slug}}'>
+                        <h6 class="card-title">{{this.name}}</h6></a>
+                    <p class="card-text" id="detail" style='white-space: pre-line; font-size:12px' onclick="window.location.href='/items/{{this.slug}}'">{{{this.description}}}</p>
+                            <p style='margin-bottom: 0px'><del class='price-mn-del'>{{this.priceDel}}</del><h7></h7></p>
+                            <h5 class='price-mn'></h5>
+                            <h5 class="price" style ='display:none' onclick="window.location.href='/items/{{this.slug}}'">{{this.price}}</h5>
+                            <button type="button" class="btn btn-info btn-cart">Thêm vào giỏ
+                        </button>
+                            
+                </div>
+            </div>
+
+        </div>
+        {{else}}
+        <h3 style='margin-left:30px; color:rgb(255, 255, 255)'>Rất tiếc! Không có sản phẩm nào giống yêu cầu của bạn :( Hãy thử tìm kiếm lại!!!</h3>
+
+        {{/each}}
+    </div>
+    
+</div>
+        <!-- The Modal -->
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Giỏ Hàng</h6>
+                <span class="close">&times;</span>
+            </div>
+            <form method="POST" action='/orderitems'>
+                <div class="margin-input">
+                    <div class="input-group input-group-sm mb-3" style='margin-top:20px'>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Họ tên của bạn</span>
+                        </div>
+                        <input type="text" name='name' id="name" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Địa chỉ</span>
+                        </div>
+                        <input type="text" name='address' id="address"  class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Số điện thoại</span>
+                        </div>
+                        <input type="text"  id="phoneNumber" name='phoneNumber' class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style='font-size:14px'>Ghi chú</span>
+                        </div>
+                        <textarea type='text' class="form-control" aria-label="With textarea" id="note" name='note'></textarea>
+                    </div>
+                    <dd style='font-weight: 400; color: rgb(96, 94, 92);'>Phương thức giao hàng:</dd>
+                    <div class="custom-control custom-radio">
+                      <input name='paymentMethods' value='Thanh toán khi nhận hàng' checked='checked' type="radio" class='custom-control-input' required>
+                      <label class="custom-control-label" for="customRadio1" style='font-weight: 600; color: rgb(50, 49, 48);'>Thanh toán khi nhận hàng</label>
+                    </div>
+                    <input type="hidden" value='' id='nameItems' name='nameItems' >
+                    <input type="hidden"  value =''  id='total-items' name='total'>
+                    <input type="hidden"  value =''  id='orderId' name='_id'>
+                </div>
+            
+            <div class="modal-body">
+                <div class="cart-row">
+                    <span class="cart-item cart-header cart-column">Sản Phẩm</span>
+                    <span class="cart-price cart-header cart-column" style='font-size: 1em !important; '>Giá</span>
+                    <span class="cart-quantity cart-header cart-column">Số Lượng</span>
+                </div>
+                <div class="cart-items">
+                </div>
+                
+            </div>
+            <div class="cart-total">
+                <strong class="cart-total-title">Tổng Cộng:</strong>
+                <span id='total-del'></span>
+                <span class="cart-total-price" id='total' style='display:none'>0VNĐ</span>
+             </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-footer">Đóng</button>
+                <button type="submit" class="btn btn-info order">Đặt hàng</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- content -->
+    
+<style>
+    .divfix {
+        right: 0;
+        position: fixed;
+        z-index: 3000;
+        padding-right: 30px;
+    }
+    .img-items {
+    width: 210px;
+    height: 200px;
+    }
+    .card-img-top {
+        padding: 20px;
+        transform: scale(1);
+        transition: all 0.5s;
+    }
+
+    .card-img-top:hover {
+        transform: scale(1.1);
+    }
+    .search {
+      margin-top:32px;
+
+    }
+</style>
+<script>
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  //Số lượng sản phẩm trong giỏ
+  var btnBuy = document.getElementsByClassName("btn-cart");
+   for (var i = 0; i < btnBuy.length; i++) {
+       var btn = btnBuy[i];
+       btn.addEventListener("click", function () {
+          var quantity_item = document.getElementsByClassName('cart-item-title').length + 1
+          document.getElementsByClassName('badge')[0].innerHTML= quantity_item
+       })
+   }
+  
+  // Số lượng sản phẩm trong giỏ-end
+  //Chức năng filter
+  var brand = document.getElementById('brand')
+  var type = document.getElementById('type')
+  var priceRange = document.getElementById('priceRange')
+  var search = document.getElementsByClassName('search')[0]
+    search.onclick = function(){
+      var nameBrand
+      var nameType
+      var namePrice
+      var queryBrand = ''
+      if (brand.value == 'all'){
+        queryBrand = ''
+        nameBrand = ''
+        
+      }else{
+        queryBrand = "=" + brand.value + '&'
+        nameBrand = brand.getAttribute('name')
+      }
+      var queryType = ''
+      if (type.value !== 'all'){
+        queryType = "=" + type.value + '&'
+        nameType = type.getAttribute('name')
+      }else{
+        queryType = ''
+        nameType = ''
+      }
+      var queryPrice = ''
+      if (priceRange.value !== 'all'){
+        namePrice = priceRange.getAttribute('name')
+        queryPrice = "=" + priceRange.value + '&'
+      }else{
+        queryPrice = ''
+        namePrice = ''
+      }
+      var queryHref = '?_filter&' + nameBrand + queryBrand + nameType + queryType + namePrice + queryPrice
+      window.location.href = queryHref
+    }
+    //Chức năng filter-end
+    if (window.location.href !== 'http://localhost:3000/'){
+      document.getElementById("scroll").scrollIntoView();
+    }
+    document.addEventListener('DOMContentLoaded', function (){
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+        //----------------//
+
+        var itemId;
+        var btnOrder = document.getElementById('btn-order')
+        $('#order-item-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        itemId = button.data('id')
+        
+        
+        })
+      var url = window.location.href
+      var newQuery = document.getElementById('new')
+      var priceDescQuery = document.getElementById('price-desc')
+      var priceAscQuery = document.getElementById('price-asc')
+      if (url.includes('_filter') && url.includes('_sort')){
+        newQuery.onclick =  function(){
+        window.location.href = url.replace(window.location.href.slice(window.location.href.indexOf('_sort') + 0),'_sort&column=createdAt&typeSort=desc')
+        }
+        priceDescQuery.onclick =  function(){
+          window.location.href = url.replace(window.location.href.slice(window.location.href.indexOf('_sort') + 0),'_sort&column=price&typeSort=desc')
+        }
+        priceAscQuery.onclick =  function(){
+          window.location.href = url.replace(window.location.href.slice(window.location.href.indexOf('_sort') + 0),'_sort&column=price&typeSort=asc')
+        }
+      }else if (url.includes('_filter') && !url.includes('_sort')){
+        newQuery.onclick =  function(){
+        window.location.href = url + '_sort&column=createdAt&typeSort=desc'
+        }
+        priceDescQuery.onclick =  function(){
+          window.location.href = url + '_sort&column=price&typeSort=desc'
+        }
+        priceAscQuery.onclick =  function(){
+          window.location.href = url + '_sort&column=price&typeSort=asc'
+        }
+      }else if (!url.includes('_filter') && !url.includes('_sort')){
+        newQuery.onclick =  function(){
+        window.location.href = url + '?_sort&column=createdAt&typeSort=desc'
+        }
+        priceDescQuery.onclick =  function(){
+          window.location.href = url + '?_sort&column=price&typeSort=desc'
+        }
+        priceAscQuery.onclick =  function(){
+          window.location.href = url + '?_sort&column=price&typeSort=asc'
+        }
+      }else if (!url.includes('_filter') && url.includes('_sort')){
+          newQuery.onclick =  function(){
+          window.location.href = url.replace(window.location.href.slice(window.location.href.indexOf('_sort') + 0),'_sort&column=createdAt&typeSort=desc')
+          }
+          priceDescQuery.onclick =  function(){
+            window.location.href = url.replace(window.location.href.slice(window.location.href.indexOf('_sort') + 0),'_sort&column=price&typeSort=desc')
+          }
+          priceAscQuery.onclick =  function(){
+            window.location.href = url.replace(window.location.href.slice(window.location.href.indexOf('_sort') + 0),'_sort&column=price&typeSort=asc')
+          }
+        }
+      if (url.includes('column=createdAt')){
+        newQuery.firstElementChild.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>`
+      }else if (url.includes('column=price&typeSort=desc')){
+        priceDescQuery.firstElementChild.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>`
+      }else if (url.includes('column=price&typeSort=asc')){
+        priceAscQuery.firstElementChild.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>`
+      }
+      var select = $('.custom-select')
+      var searchBtn = document.getElementsByClassName('search')[0]
+      select.change(function(){
+        searchBtn.removeAttribute('disabled')
+      })
+      var orderId = document.getElementById('orderId')
+      orderId.setAttribute('value', Math.floor(Math.random() * 999999999999999999))
+    })
+          // Modal
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("cart");
+    var close = document.getElementsByClassName("close")[0];
+    // tại sao lại có [0] như  thế này bởi vì mỗi close là một html colection nên khi mình muốn lấy giá trị html thì phải thêm [0]. 
+    //Nếu mình có 2 cái component cùng class thì khi [0] nó sẽ hiển thị component 1 còn [1] thì nó sẽ hiển thị component 2.
+    var close_footer = document.getElementsByClassName("close-footer")[0];
+    var order = document.getElementsByClassName("order")[0];
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    close.onclick = function () {
+        modal.style.display = "none";
+    }
+    close_footer.onclick = function () {
+        modal.style.display = "none";
+    }
+    order.onclick = function () {
+        console.log("Cảm ơn bạn đã thanh toán đơn hàng")
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    var remove_cart = document.getElementsByClassName("btn-danger");
+    for (var i = 0; i < remove_cart.length; i++) {
+        var button = remove_cart[i]
+        button.addEventListener("click", function () {
+            var button_remove = event.target
+            button_remove.parentElement.parentElement.remove()
+        })
+    }
+    function updatecart() {
+          var totalInput = document.getElementById('total-items');
+          var inputNameitems = document.getElementById('nameItems')
+          var cart_item = document.getElementsByClassName("cart-items")[0];
+          var cart_rows = cart_item.getElementsByClassName("cart-row");
+          var itemsTitle = document.getElementsByClassName('cart-item-title')
+          var valueNameitems = ''
+          var total = 0;
+          for (var i = 0; i < cart_rows.length; i++) {
+              var cart_row = cart_rows[i]
+              var price_item = cart_row.getElementsByClassName("cart-price ")[0]
+              var quantity_item = cart_row.getElementsByClassName("cart-quantity-input")[0]
+              var price = parseFloat(price_item.innerText)// chuyển một chuổi string sang number để tính tổng tiền.
+              var quantity = quantity_item.value // lấy giá trị trong thẻ input
+              total = total + (price * quantity)
+              var itemTitle = itemsTitle[i].innerHTML
+              valueNameitems += itemTitle + ' SL: ' + quantity + '; ';
+          }
+          
+          document.getElementsByClassName("cart-total-price")[0].innerText = total + ' vnđ'
+          var totalDel = Number(total.toFixed(2)).toLocaleString() + " vnđ"
+          document.getElementById('total-del').innerHTML = totalDel
+          //Gửi total lên sever
+          totalInput.setAttribute('value', total)
+          inputNameitems.setAttribute('value', valueNameitems)
+          
+          
+          // Thay đổi text = total trong .cart-total-price. Chỉ có một .cart-total-price nên mình sử dụng [0].
+    }
+
+    // thay đổi số lượng sản phẩm
+        var quantity_input = document.getElementsByClassName("cart-quantity-input");
+        for (var i = 0; i < quantity_input.length; i++) {
+            var input = quantity_input[i];
+            input.addEventListener("change", function (event) {
+                var input = event.target
+                if (isNaN(input.value) || input.value <= 0) {
+                    input.value = 1;
+                }
+                updatecart()
+            })
+        }
+        
+        
+        // Thêm vào giỏ
+    var add_cart = document.getElementsByClassName("btn-cart");
+    for (var i = 0; i < add_cart.length; i++) {
+        var add = add_cart[i];
+        add.addEventListener("click", function (event) {
+
+            var button = event.target;
+            var product = button.parentElement.parentElement;
+            var img = product.parentElement.getElementsByClassName("card-img-top")[0].src
+            var title = product.getElementsByClassName("card-title")[0].innerText
+            var price = product.getElementsByClassName("price")[0].innerText
+            addItemToCart(title, price, img)
+            // Khi thêm sản phẩm vào giỏ hàng thì sẽ hiển thị modal
+            modal.style.display = "block";
+            
+            updatecart()
+        })
+    }
+
+    function addItemToCart(title, price, img) {
+        var cartRow = document.createElement('div')
+        cartRow.classList.add('cart-row')
+        var cartItems = document.getElementsByClassName('cart-items')[0]
+        var cart_title = cartItems.getElementsByClassName('cart-item-title')
+        //Nếu title của sản phẩm bằng với title mà bạn thêm vao giỏ hàng thì sẽ thông cho user.
+        for (var i = 0; i < cart_title.length; i++) {
+            if (cart_title[i].innerText == title) {
+                alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
+                return
+            }
+        }
+    
+    var cartRowContents = `
+    <div class="cart-item cart-column">
+        <span class="cart-item-title" style='font-weight:500'>${title}</span>
+    </div>
+    <span class="cart-price cart-column" style='font-weight:500'>${price}</span>
+    <div class="cart-quantity cart-column">
+        <input class="cart-quantity-input" type="number" value="1">
+        <button class="btn btn-danger" type="button">Xóa</button>
+    </div>`
+    cartRow.innerHTML = cartRowContents
+    cartItems.append(cartRow)
+
+    cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', function () {
+        var button_remove = event.target
+        button_remove.parentElement.parentElement.remove()
+        var quantity_item = document.getElementsByClassName('cart-item-title').length
+        document.getElementsByClassName('badge')[0].innerHTML= quantity_item
+        updatecart()
+    })
+    cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', function (event) {
+        var input = event.target
+        if (isNaN(input.value) || input.value <= 0) {
+            input.value = 1;
+        }
+        updatecart()
+    })
+
+    
+    
+  
+
+  }
+  var numberPrice = document.getElementsByClassName('price');
+  var numberPricedel = document.getElementsByClassName('price-mn-del');
+  var discount = document.getElementsByTagName('h7');
+  for (var i=0; i< numberPrice.length; i++){
+    var number = parseFloat(numberPrice[i].innerHTML)
+    var number2 = parseFloat(numberPricedel[i].innerHTML)
+    var priceDel = Number(number2.toFixed(2)).toLocaleString()
+    var price = Number(number.toFixed(2)).toLocaleString()
+    var numberDiscount = Math.floor(100 - ((number/number2) * 100))
+    numberPricedel[i].innerHTML = priceDel + " vnđ"
+    
+    discount[i].innerHTML = ' -' + numberDiscount + '%'
+    document.getElementsByClassName('price-mn')[i].innerHTML = price + " vnđ"
+  }
+
+
+</script>
+<style>
+    
+  
+  /* modal */
+  .margin-input{
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    margin: 0 auto;
+    width: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    background-clip: padding-box;
+    outline: 0;
+  
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .modal-footer {
+    display: flex;
+    border-top: 1px solid #aaaaaa;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top: 1px solid #aaaaaa;
+    padding: 1rem;
+  }
+  
+  .modal-footer>:not(:first-child) {
+    margin-left: .25rem;
+  }
+  
+  .btn {
+    cursor: pointer;
+    outline: none;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: all .2s ease-in-out;
+  }
+  
+  .btn-secondary {
+    color: #292b2c;
+    background-color: #fff;
+    border-color: #ccc;
+  }
+  
+  .btn-primary {
+    color: #fff;
+    background-color: #0275d8;
+    border-color: #0275d8;
+  }
+  
+  .modal-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaaaaa;
+    padding: 1rem;
+  }
+  
+  h5.modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #cart {
+    font-size: 10px;
+    color: #0e0e03;
+    background: #efeff1;
+    outline: none;
+    margin-left: 1rem;
+    padding: 1px;
+    cursor: pointer;
+  }
+  
+  #cart:hover {
+    background-color: #f8f8fc;
+  }
+  /* wrapper */
+ .wrapper {
+    padding: 2rem;
+  } 
+  
+  .products ul {
+    display: inline-block;
+  }
+  
+  .products ul .main-product {
+    margin-bottom: 2rem;
+    margin-right: 1rem;
+    display: block;
+    float: left;
+    width: 24%;
+  }
+  
+  .products ul .no-margin {
+    margin-right: 0;
+  }
+  
+  .products ul .img-product img {
+    width: 100%;
+  }
+  
+  .content-product .content-product-h3 {
+    padding: .5rem 0;
+    overflow: hidden;
+    color: #222;
+    font-weight: 500;
+    font-size: 16px;
+    max-height: 50px;
+    min-height: 50px;
+    text-align: center;
+    line-height: 19px;
+    margin: 0 0 5px;
+  }
+  
+  .content-product .content-product-deltals {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+  
+  .main-product .content-product .content-product-deltals .price {
+    color: #252627;
+    font-weight: lighter;
+    margin-right: 1rem;
+    vertical-align: middle;
+    font-size: 20px;
+  }
+  
+  .content-product .content-product-deltals .price .money {
+    vertical-align: middle;
+  }
+  
+  .content-product .content-product-deltals .btn-cart {
+    background: #6ca0b4;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  .content-product .content-product-deltals .btn-cart:hover {
+    background: #b3c3d4;
+  }
+  
+  /* footer */
+  .footer-item {
+    padding: .5rem 2rem;
+    background: #b9b9b5;
+    display: flex;
+  
+  }
+  
+  .footer-item .img-footer {
+    align-items: center;
+    display: flex;
+  }
+  
+  .footer-item .img-footer img {
+    width: 100%;
+  }
+  
+  .footer-item .social-footer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .footer-item .social-footer li a {
+    color: #000000;
+    font-size: 2rem;
+  }
+  
+  .footer-item .social-footer li:last-child {
+    margin-left: .5rem;
+  }
+  /* footer */
+.footer-item {
+    padding: .5rem 2rem;
+    background: #efeff1;
+    display: flex;
+  
+  }
+  
+  .footer-item .img-footer {
+    align-items: center;
+    display: flex;
+  }
+  
+  .footer-item .img-footer img {
+    width: 100%;
+  }
+  
+  .footer-item .social-footer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .footer-item .social-footer li a {
+    color: #000000;
+    font-size: 2rem;
+  }
+  
+  .footer-item .social-footer li:last-child {
+    margin-left: .5rem;
+  }
+  /* cart */
+.cart-header {
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .cart-column {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .cart-row {
+    display: flex;
+  }
+  
+  .cart-item {
+    width: 45%;
+  }
+  
+  .cart-price {
+    width: 20%;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .cart-quantity {
+    width: 35%;
+  }
+  
+  .cart-item-title {
+    color: #333;
+    margin-left: .5em;
+    font-size: 14px;
+  }
+  
+  .cart-item-image {
+    width: 75px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .btn-danger {
+    color: white;
+    background-color: #EB5757;
+    border: none;
+    border-radius: .3em;
+    font-weight: 500;
+  }
+  
+  .btn-danger:hover {
+    background-color: #CC4C4C;
+  }
+  
+  .cart-quantity-input {
+    height: 30px;
+    width: 40px;
+    border-radius: 5px;
+    border: 1px solid #e1edf1;
+    background-color: #eee;
+    color: #333;
+    padding: 0;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    margin-right: 25px;
+  }
+  
+  .cart-row:last-child {
+    border-bottom: 1px solid black;
+  }
+  
+  .cart-row:last-child .cart-column {
+    border: none;
+  }
+  
+  .cart-total {
+    text-align: end;
+    margin-top: 1px;
+    margin-right: 10px;
+  }
+  
+  .cart-total-title {
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+    margin-right: 20px;
+  }
+  
+  .cart-total-price {
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+  }  
+  .btn-product {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+  .info-content {
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  b {
+    color:rgb(57, 46, 219);
+  }
+ 
+  h2 {
+    text-align: center;
+  }
+  h3 {
+    text-align: left;
+  }
+  p {
+    text-align: justify;
+  }
+  .GioiThieu {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .LienHe {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  #LienHe {
+    padding: 50px;
+  }
+  a {
+    text-decoration: none;
+    color:slategrey;
+  }
+  a:hover{
+    color:rgb(0, 0, 0);
+  }
+  .content-footer{
+    text-align: center;
+    padding: 10px;
+  }
+</style>
